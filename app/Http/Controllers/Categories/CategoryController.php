@@ -42,8 +42,13 @@ class CategoryController extends Controller
     }
     public function store(StoreCategoriesRequest $request)
     {
-        $this->categoriesRepository->store($request->all());
-        return back()->withStatus('Your category has been added successfully');
+        if($request->ajax()){
+            $this->categoriesRepository->store($request->all());
+            return response()->json([
+                'message' => 'Your category has been added successfully',
+                'code' => 200
+            ]);
+        }
     }
 
     public function show(Category $category)
@@ -52,20 +57,31 @@ class CategoryController extends Controller
     }
     public function edit(Category $category)
     {
-        $cate = $this->categoriesRepository->find($category->id);
-        return view('pages.categories.edit', [
-            'title' => 'Edit Category '.$cate->name,
-            'cate' => $cate
-        ]);
+        if($category){
+            return response()->json([
+                'cate' => new CategoryResource($category),
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Category does not exist',
+                'code' => 404
+            ]);
+        }
     }
     public function update(StoreCategoriesRequest $request, Category $category)
     {
         $data = $request->all();
         $cate_update = $this->categoriesRepository->update($category->id, $data);
         if($cate_update){
-            return back()->withStatus('Your category has been updated successfully');
+            return response()->json([
+                'message' => 'Your category has been updated successfully',
+                'code' => 200
+            ]);
         }
-        return back()->withErrors('Your category has been updated failed');
+        return response()->json([
+            'message' => 'Your category has been updated failed',
+            'code' => 400
+        ]);
     }
     public function destroy(Category $category)
     {

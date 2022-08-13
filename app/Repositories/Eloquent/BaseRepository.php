@@ -39,7 +39,8 @@ abstract class BaseRepository implements RepositoriesInterface
     //find data
     public function find($id)
     {
-        return $this->model::findOrFail($id);
+        $result = $this->model::findOrFail($id);
+        return $result;
     }
 
     public function update($id, array $data)
