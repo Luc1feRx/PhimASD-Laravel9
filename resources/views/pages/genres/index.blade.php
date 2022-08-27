@@ -6,15 +6,15 @@
     <div class="container-fluid mt--6">
         @include('pages.errors.errors')
         @include('pages.status.status')
-        <div class="row">
+        <div class="row append-list">
             <div class="col">
                 <div class="card">
                     <!-- Card header -->
                     <div class="card-header border-0 d-flex justify-content-between">
-                        <h3 class="mb-0">Categories</h3>
+                        <h3 class="mb-0">Genres</h3>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eModal">
-                            Add Category
+                            Add Genres
                         </button>
                     </div>
                     <!-- Light table -->
@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @foreach ($categories as $item)
+                                @foreach ($genres as $item)
                                     <tr id="{{ $item->id }}">
                                         <th data-target="name_category">
                                             <span class="name mb-0 text-sm">{{ $item->name }}</span>
@@ -54,7 +54,7 @@
                                                         style="outline: none; cursor: pointer"
                                                         data-id="{{ $item->id }}">Edit</a>
                                                     <button
-                                                        onclick="DeleteRow({{ $item->id }}, `{{ route('categories.destroy', ['category' => $item->id]) }}`)"
+                                                        onclick="DeleteRow({{ $item->id }}, `{{ route('genres.destroy', ['genre' => $item->id]) }}`)"
                                                         class="dropdown-item" id="btn-delete" data-id="1"
                                                         style="outline: none; cursor: pointer">Delete</button>
                                                 </div>
@@ -69,7 +69,7 @@
                     <div class="card-footer py-4">
                         <nav aria-label="...">
                             <div class="pagination justify-content-end mb-0">
-                                {!! $categories->links() !!}
+                                {!! $genres->links() !!}
                             </div>
                         </nav>
                     </div>
@@ -83,7 +83,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create a category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Create a genre</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -91,7 +91,7 @@
 
                     <div class="modal-body">
                         <ul class="errors"></ul>
-                        <form method="post" id="CreateCate">
+                        <form method="post" id="CreateGenre">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-lg-12">
@@ -133,7 +133,7 @@
                         <form method="post" id="updateForm">
                             @method('PUT')
                             {{ csrf_field() }}
-                            <input type="hidden" name="id" id="id_category">
+                            <input type="hidden" name="id" id="id_genre">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -161,25 +161,25 @@
 
 @section('foot')
     <script type="text/javascript">
-        //get list categories
+        //get list genres
         function getData(page) {
             $.ajax({
                 type: "GET",
-                url: page ? "http://127.0.0.1:8000/admin/all_categories" + "?page=" + page :
-                    "http://127.0.0.1:8000/admin/all_categories",
+                url: page ? "http://127.0.0.1:8000/admin/all_genres" + "?page=" + page :
+                    "http://127.0.0.1:8000/admin/all_genres",
                 dataType: "JSON",
                 success: function(res) {
                     $('tbody').html("");
-                    $.each(res.data, function(index, category) {
-                        $('tbody').append('<tr id="' + category.id + '">' +
+                    $.each(res.data, function(index, genre) {
+                        $('tbody').append('<tr id="' + genre.id + '">' +
                             '<th data-target="name_category">' +
-                            '<span class="name mb-0 text-sm">' + category.name + '</span>' +
+                            '<span class="name mb-0 text-sm">' + genre.name + '</span>' +
                             '</th>' +
-                            '<td class="budget" data-target="slug_category">' + category.slug +
+                            '<td class="budget">' + genre.slug +
                             '</td>' +
                             '<td>' +
                             '<span class="badge badge-dot mr-4">' +
-                            '<span class="status">' + moment(category.created_at).format(
+                            '<span class="status">' + moment(genre.created_at).format(
                                 "DD-MM-YYYY") + '</span>' +
                             '</span>' +
                             '</td>' +
@@ -191,11 +191,11 @@
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">' +
                             '<a class="dropdown-item btn-update" data-toggle="modal" data-target="#updateModal" data-id="' +
-                            category.id +
+                            genre.id +
                             '" style="outline: none; cursor: pointer" data-role="update">Edit</a>' +
                             '<button onclick="DeleteRow(' +
-                            `'${category.id}'` + ', ' +
-                            `'http://127.0.0.1:8000/admin/categories/${category.id}'` +
+                            `'${genre.id}'` + ', ' +
+                            `'http://127.0.0.1:8000/admin/genres/${genre.id}'` +
                             ')" class="dropdown-item" style="outline: none; cursor: pointer" id="btn-delete" data-id="' +
                             res.meta.current_page + '">Delete</button>' +
                             '</div>' +
@@ -207,10 +207,12 @@
             });
         }
 
-        //add categories
+        //add genres
         $(document).ready(function() {
-            $('body').on('submit', '#CreateCate', function(e) {
+            $('body').on('submit', '#CreateGenre', function(e) {
                 e.preventDefault();
+                $('.errors').html('');
+            $('.errors').removeClass('alert alert-danger');
                 var name = $('input[name=name]').val();
                 var slug = $('input[name=slug]').val();
 
@@ -219,7 +221,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('categories.store') }}",
+                    url: "{{ route('genres.store') }}",
                     data: {
                         name: name,
                         slug: slug,
@@ -231,7 +233,7 @@
                             data.message,
                             'success'
                         )
-                        $('#CreateCate')[0].reset();
+                        $('#CreateGenre')[0].reset();
                         $('.table').load(location.href + ' .table-flush');
                         setTimeout(() => {
                             $('#eModal').modal('hide');
@@ -254,7 +256,7 @@
         });
 
 
-        //get data edit categories
+        //get data edit genres
         $(document).on('click', '.btn-update', function(e) {
             e.preventDefault();
             var id = $(this).attr("data-id");
@@ -262,19 +264,19 @@
             $('.errors').removeClass('alert alert-danger');
             $.ajax({
                 type: "GET",
-                url: 'categories/' + id + '/edit',
+                url: 'genres/' + id + '/edit',
                 success: function(response) {
-                    $('.name-update').val(response.cate.name);
-                    $('.slug-update').val(response.cate.slug);
-                    $('#id_category').val(response.cate.id);
+                    $('.name-update').val(response.genre.name);
+                    $('.slug-update').val(response.genre.slug);
+                    $('#id_genre').val(response.genre.id);
                 }
             });
         });
 
-        //update categories
+        //update genres
         $(document).on('submit', '#updateForm', function(e) {
             e.preventDefault();
-            var id = $('#id_category').val();
+            var id = $('#id_genre').val();
             var name = $('.name-update').val();
             var slug = $('.slug-update').val();
 
@@ -283,7 +285,7 @@
 
             $.ajax({
                 type: "PUT",
-                url: "categories/" + id,
+                url: "genres/" + id,
                 data: {
                     name: name,
                     slug: slug,

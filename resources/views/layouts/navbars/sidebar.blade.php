@@ -118,7 +118,70 @@
                                     {{ __('Categories Management') }}
                                 </a>
                             </li>
+
                         </ul>
+                        
+                    </div>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Genres') }}</span>
+                    </a>
+
+
+                    <div class="collapse show" id="navbar-examples">
+                        <ul class="nav nav-sm flex-column">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('genres.index') }}">
+                                    {{ __('Genres Management') }}
+                                </a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Countries') }}</span>
+                    </a>
+
+
+                    <div class="collapse show" id="navbar-examples">
+                        <ul class="nav nav-sm flex-column">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('countries.index') }}">
+                                    {{ __('Countries Management') }}
+                                </a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Movies') }}</span>
+                    </a>
+
+
+                    <div class="collapse show" id="navbar-examples">
+                        <ul class="nav nav-sm flex-column">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('movies.index') }}">
+                                    {{ __('Movies Management') }}
+                                </a>
+                            </li>
+                        </ul>
+                        
                     </div>
                 </li>
 {{-- 

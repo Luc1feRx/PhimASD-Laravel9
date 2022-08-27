@@ -5,7 +5,6 @@ namespace App\Repositories\Eloquent;
 use App\Models\Category;
 use App\Repositories\CategoryInterface;
 use App\Repositories\Eloquent\BaseRepository;
-use App\Repositories\RepositoriesInterface;
 
 class CategoryRepository extends BaseRepository implements CategoryInterface{
 

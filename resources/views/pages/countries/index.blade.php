@@ -11,10 +11,10 @@
                 <div class="card">
                     <!-- Card header -->
                     <div class="card-header border-0 d-flex justify-content-between">
-                        <h3 class="mb-0">Categories</h3>
+                        <h3 class="mb-0">Countries</h3>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eModal">
-                            Add Category
+                            Add Country
                         </button>
                     </div>
                     <!-- Light table -->
@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @foreach ($categories as $item)
+                                @foreach ($countries as $item)
                                     <tr id="{{ $item->id }}">
                                         <th data-target="name_category">
                                             <span class="name mb-0 text-sm">{{ $item->name }}</span>
@@ -54,7 +54,7 @@
                                                         style="outline: none; cursor: pointer"
                                                         data-id="{{ $item->id }}">Edit</a>
                                                     <button
-                                                        onclick="DeleteRow({{ $item->id }}, `{{ route('categories.destroy', ['category' => $item->id]) }}`)"
+                                                        onclick="DeleteRow({{ $item->id }}, `{{ route('countries.destroy', ['country' => $item->id]) }}`)"
                                                         class="dropdown-item" id="btn-delete" data-id="1"
                                                         style="outline: none; cursor: pointer">Delete</button>
                                                 </div>
@@ -69,7 +69,7 @@
                     <div class="card-footer py-4">
                         <nav aria-label="...">
                             <div class="pagination justify-content-end mb-0">
-                                {!! $categories->links() !!}
+                                {!! $countries->links() !!}
                             </div>
                         </nav>
                     </div>
@@ -83,7 +83,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create a category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Create a country</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -91,7 +91,7 @@
 
                     <div class="modal-body">
                         <ul class="errors"></ul>
-                        <form method="post" id="CreateCate">
+                        <form method="post" id="CreateCountry">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-lg-12">
@@ -123,7 +123,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Updating category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Updating country</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -133,12 +133,12 @@
                         <form method="post" id="updateForm">
                             @method('PUT')
                             {{ csrf_field() }}
-                            <input type="hidden" name="id" id="id_category">
+                            <input type="hidden" name="id" id="id_country">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control name-update" placeholder="Enter name"
-                                            name="name" id="slug" onkeyup="ChangeToSlug()">
+                                        <input type="text" class="form-control name-update" placeholder="Enter name" id="slug"
+                                        onkeyup="ChangeToSlug()" name="name">
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control slug-update" placeholder="Enter slug"
@@ -161,55 +161,55 @@
 
 @section('foot')
     <script type="text/javascript">
-        //get list categories
-        function getData(page) {
-            $.ajax({
-                type: "GET",
-                url: page ? "http://127.0.0.1:8000/admin/all_categories" + "?page=" + page :
-                    "http://127.0.0.1:8000/admin/all_categories",
-                dataType: "JSON",
-                success: function(res) {
-                    $('tbody').html("");
-                    $.each(res.data, function(index, category) {
-                        $('tbody').append('<tr id="' + category.id + '">' +
-                            '<th data-target="name_category">' +
-                            '<span class="name mb-0 text-sm">' + category.name + '</span>' +
-                            '</th>' +
-                            '<td class="budget" data-target="slug_category">' + category.slug +
-                            '</td>' +
-                            '<td>' +
-                            '<span class="badge badge-dot mr-4">' +
-                            '<span class="status">' + moment(category.created_at).format(
-                                "DD-MM-YYYY") + '</span>' +
-                            '</span>' +
-                            '</td>' +
-                            '<td class="text-right">' +
-                            '<div class="dropdown">' +
-                            '<a class="btn btn-sm btn-icon-only text-light" role="button"' +
-                            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                            '<i class="fas fa-ellipsis-v"></i>' +
-                            '</a>' +
-                            '<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">' +
-                            '<a class="dropdown-item btn-update" data-toggle="modal" data-target="#updateModal" data-id="' +
-                            category.id +
-                            '" style="outline: none; cursor: pointer" data-role="update">Edit</a>' +
-                            '<button onclick="DeleteRow(' +
-                            `'${category.id}'` + ', ' +
-                            `'http://127.0.0.1:8000/admin/categories/${category.id}'` +
-                            ')" class="dropdown-item" style="outline: none; cursor: pointer" id="btn-delete" data-id="' +
-                            res.meta.current_page + '">Delete</button>' +
-                            '</div>' +
-                            '</div>' +
-                            '</td>' +
-                            '</tr>');
-                    });
-                }
-            });
-        }
+        //get list countries
+        // function getData(page) {
+        //     $.ajax({
+        //         type: "GET",
+        //         url: page > 1 ? "http://127.0.0.1:8000/admin/all_countries" + "?page=" + page :
+        //             "http://127.0.0.1:8000/admin/all_countries",
+        //         dataType: "JSON",
+        //         success: function(res) {
+        //             $('tbody').html("");
+        //             $.each(res.data, function(index, country) {
+        //                 $('tbody').append('<tr id="' + country.id + '">' +
+        //                     '<th data-target="name_category">' +
+        //                     '<span class="name mb-0 text-sm">' + country.name + '</span>' +
+        //                     '</th>' +
+        //                     '<td class="budget"' + country.slug +
+        //                     '</td>' +
+        //                     '<td>' +
+        //                     '<span class="badge badge-dot mr-4">' +
+        //                     '<span class="status">' + moment(country.created_at).format(
+        //                         "DD-MM-YYYY") + '</span>' +
+        //                     '</span>' +
+        //                     '</td>' +
+        //                     '<td class="text-right">' +
+        //                     '<div class="dropdown">' +
+        //                     '<a class="btn btn-sm btn-icon-only text-light" role="button"' +
+        //                     'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+        //                     '<i class="fas fa-ellipsis-v"></i>' +
+        //                     '</a>' +
+        //                     '<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">' +
+        //                     '<a class="dropdown-item btn-update" data-toggle="modal" data-target="#updateModal" data-id="' +
+        //                     country.id +
+        //                     '" style="outline: none; cursor: pointer" data-role="update">Edit</a>' +
+        //                     '<button onclick="DeleteRow(' +
+        //                     `'${country.id}'` + ', ' +
+        //                     `'http://127.0.0.1:8000/admin/countries/${country.id}'` +
+        //                     ')" class="dropdown-item" style="outline: none; cursor: pointer" id="btn-delete" data-id="' +
+        //                     res.meta.current_page + '">Delete</button>' +
+        //                     '</div>' +
+        //                     '</div>' +
+        //                     '</td>' +
+        //                     '</tr>');
+        //             });
+        //         }
+        //     });
+        // }
 
-        //add categories
+        //add countries
         $(document).ready(function() {
-            $('body').on('submit', '#CreateCate', function(e) {
+            $('body').on('submit', '#CreateCountry', function(e) {
                 e.preventDefault();
                 var name = $('input[name=name]').val();
                 var slug = $('input[name=slug]').val();
@@ -219,7 +219,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('categories.store') }}",
+                    url: "{{ route('countries.store') }}",
                     data: {
                         name: name,
                         slug: slug,
@@ -231,8 +231,8 @@
                             data.message,
                             'success'
                         )
-                        $('#CreateCate')[0].reset();
-                        $('.table').load(location.href + ' .table-flush');
+                        $('#CreateCountry')[0].reset();
+                        $('.table').load(location.href + ' .table');
                         setTimeout(() => {
                             $('#eModal').modal('hide');
                         }, 1000);
@@ -254,7 +254,7 @@
         });
 
 
-        //get data edit categories
+        //get data edit countries
         $(document).on('click', '.btn-update', function(e) {
             e.preventDefault();
             var id = $(this).attr("data-id");
@@ -262,19 +262,19 @@
             $('.errors').removeClass('alert alert-danger');
             $.ajax({
                 type: "GET",
-                url: 'categories/' + id + '/edit',
+                url: 'countries/' + id + '/edit',
                 success: function(response) {
-                    $('.name-update').val(response.cate.name);
-                    $('.slug-update').val(response.cate.slug);
-                    $('#id_category').val(response.cate.id);
+                    $('.name-update').val(response.country.name);
+                    $('.slug-update').val(response.country.slug);
+                    $('#id_country').val(response.country.id);
                 }
             });
         });
 
-        //update categories
+        //update countries
         $(document).on('submit', '#updateForm', function(e) {
             e.preventDefault();
-            var id = $('#id_category').val();
+            var id = $('#id_country').val();
             var name = $('.name-update').val();
             var slug = $('.slug-update').val();
 
@@ -283,7 +283,7 @@
 
             $.ajax({
                 type: "PUT",
-                url: "categories/" + id,
+                url: "countries/" + id,
                 data: {
                     name: name,
                     slug: slug,
@@ -295,7 +295,7 @@
                         response.message,
                         'success'
                     )
-                    $('.table').load(location.href + ' .table-flush');
+                    $('.table').load(location.href + ' .table');
                     setTimeout(() => {
                         $('#updateModal').modal('hide');
                     }, 1000);

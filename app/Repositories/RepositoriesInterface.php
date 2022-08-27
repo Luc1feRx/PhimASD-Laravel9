@@ -17,4 +17,5 @@ interface RepositoriesInterface
     public function update($id, array $attributes);
 
     public function delete($id);
+    
 }

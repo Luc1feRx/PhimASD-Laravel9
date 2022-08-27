@@ -3,7 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\RepositoriesInterface;
-use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository implements RepositoriesInterface
 {
@@ -13,21 +12,21 @@ abstract class BaseRepository implements RepositoriesInterface
         $this->setModel();
     }
 
-    abstract public function getModel();
+    abstract protected function getModel();
 
-    public function setModel()
+    protected function setModel()
     {
         $this->model = $this->getModel();
     }
 
-    public function getPaginated($itemOnPage){
-        return $this->model->paginate($itemOnPage);
+    public function getPaginated($itemOnPage = 0){
+        return $this->model::paginate($itemOnPage);
     }
 
     //get list
     public function getAll()
     {
-        return $this->model->all();
+        return $this->model::orderBy('id', 'desc')->get();
     }
 
     //store data

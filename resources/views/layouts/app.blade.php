@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.26/sweetalert2.min.css"
         integrity="sha512-yq+qDDTUuLA4zvJjuvcpV809SNmM0ReTyeadKsNvW0cSvGVfj3K20SdlkburwJHHdzuGDtFElBcxndjd7J3nrQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -50,6 +51,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
         integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     @stack('js')
 
@@ -59,19 +62,69 @@
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+            },
+            cache: false
         });
+        let YourEditor;
 
-        //get current page
-        const params = new URLSearchParams(window.location.search);
-        const pageCurrent = params.getAll('page');
-        console.log(pageCurrent);
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .then(editor => {
+                console.log(description);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+            ClassicEditor
+            .create( document.querySelector('#description_update'))
+            .then(editor => {
+                YourEditor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+
 
         $(document).on('click', '.pagination span', function(e) {
             e.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
             getData(page);
         });
+        
+
+        $(document).ready(function(){
+
+            $(".datepicker1, .datepicker2, .datepicker3").datepicker({
+                format: "yyyy",
+                viewMode: "years", 
+                minViewMode: "years",
+                autoclose:true //to close picker once year is selected
+            });
+
+            $(".datepicker1" ).on("change", function() { 
+                var year = $(this).val();
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('movies.UpdateYearRelease') }}",
+                    data: {year_change_quick: year, id: id},
+                    dataType: "json",
+                    cache: false,
+                    success: function (response) {
+                        Swal.fire(
+                            'Successfully!',
+                            response.message,
+                            'success'
+                        )
+                    }
+                });
+            });
+
+        });
+
         //deleterow
         function DeleteRow(id, url) {
             var message = Swal.fire({
@@ -91,6 +144,7 @@
                             id
                         },
                         url: url,
+                        cache: false,
                         success: function(result) {
 
                             Swal.fire(
@@ -98,11 +152,8 @@
                                 result.message,
                                 'success'
                             )
-                            if (pageCurrent > 1) {
-                                getData(pageCurrent);
-                            } else {
-                                getData(1);
-                            }
+
+                            $('.table').load(location.href + ' .table-flush');
 
                         },
                         error: function(errors) {
@@ -111,11 +162,7 @@
                                 result.message,
                                 'error'
                             )
-                            if (pageCurrent > 1) {
-                                getData(pageCurrent);
-                            } else {
-                                getData(1);
-                            }
+                            $('.table').load(location.href + ' .table-flush');
                         }
                     });
                 }
