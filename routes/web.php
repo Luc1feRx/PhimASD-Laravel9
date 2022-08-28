@@ -66,4 +66,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 	Route::post('update_year_release', [MovieController::class, 'UpdateYearRelease'])->name('movies.UpdateYearRelease');
 	Route::post('update_season', [MovieController::class, 'UpdateSeason'])->name('movies.UpdateSeason');
 	Route::get('get_genres/{id}', [MovieController::class, 'getGenres'])->name('movies.getGenres');
+	Route::get('get_categories/{id}', [MovieController::class, 'getCategories'])->name('movies.getCategories');
 });

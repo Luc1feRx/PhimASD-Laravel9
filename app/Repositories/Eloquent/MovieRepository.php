@@ -1,6 +1,7 @@
 <?php 
 namespace App\Repositories\Eloquent;
 use App\Models\Movie;
+use App\Models\Movie_Genre;
 use App\Repositories\MovieInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,10 @@ class MovieRepository extends BaseRepository implements MovieInterface{
         return DB::table('movie_genre')->join('movies', 'movie_genre.movie_id', '=', 'movies.id')->select('genre_id')->where('movies.id', '=', $id)->get();
     }
 
+    public function getCategories($id){
+        return DB::table('movie_category')->join('movies', 'movie_category.movie_id', '=', 'movies.id')->select('category_id')->where('movies.id', '=', $id)->get();
+    }
+
     public function storeMovie($data, $request){
         try {
             $movie = new Movie();
@@ -27,14 +32,17 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             $movie->description = $data['description'];
             $movie->resolution = $data['resolution'];
             $movie->trailer = $data['trailer'];
+            $movie->episodes = $data['episodes'];
             $movie->duration = $data['duration'];
             $movie->year_release = $data['year_release'];
             $movie->name_eng = $data['name_eng'];
             $movie->subtitle = $data['subtitle'];
-            $movie->id_category = $data['categories'];
             $movie->id_genre = $data['genres'];
             foreach($data['genres'] as $key => $value){
                 $movie->id_genre = $value[0];
+            }
+            foreach($data['categories'] as $key => $cate){
+                $movie->id_category = $cate[0];
             }
             $movie->id_country = $data['country'];
             $movie->status = $data['status'];
@@ -51,6 +59,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             }
             $movie->save();
             $movie->movie_genre()->attach($data['genres']);
+            $movie->movie_category()->attach($data['categories']);
             return true;
         } catch (\Throwable $th) {
             return false;
@@ -78,6 +87,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
         if($result){
             Storage::delete('storage/uploads/movies/', $result->image);
             unlink('storage/uploads/movies/' . $result->image);
+            Movie_Genre::whereIn('movie_id', [$result->id])->delete();
             $result->delete();
             return $result;
         }
@@ -94,11 +104,10 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             $movie->resolution = $data['resolution'];
             $movie->trailer = $data['trailer'];
             $movie->duration = $data['duration'];
+            $movie->episodes = $data['episodes'];
             $movie->name_eng = $data['name_eng'];
             $movie->year_release = $data['year_release'];
             $movie->subtitle = $data['subtitle'];
-            $movie->id_category = $data['categories'];
-            $movie->id_genre = $data['genres'];
             $movie->id_country = $data['country'];
             $movie->status = $data['status'];
             $movie->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
@@ -115,7 +124,16 @@ class MovieRepository extends BaseRepository implements MovieInterface{
                 unlink('storage/uploads/movies/' . $movie->image);
                 $movie->image = $new_image;
             }
+            foreach($data['genres'] as $key => $v){
+                $movie->id_genre = $v[0];
+            }
+            foreach($data['categories'] as $key => $cate){
+                $movie->id_category = $cate[0];
+            }
             $movie->save();
+
+            $movie->movie_genre()->sync($data['genres']);
+            $movie->movie_category()->sync($data['categories']);
             return true;
         } catch (\Throwable $th) {
             return false;

@@ -13,7 +13,8 @@
                     <div class="card-header border-0 d-flex justify-content-between">
                         <h3 class="mb-0">Movies</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eModal">Add Movie</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eModal">Add
+                            Movie</button>
                     </div>
                     <!-- Light table -->
                     <div class="table-responsive">
@@ -24,6 +25,7 @@
                                     <th scope="col" class="sort" data-sort="name">Name</th>
                                     <th scope="col" class="sort" data-sort="name">Eng title</th>
                                     <th scope="col" class="sort" data-sort="budget">Slug</th>
+                                    <th scope="col" class="sort" data-sort="budget">Episodes</th>
                                     <th scope="col" class="sort" data-sort="budget">Resolution</th>
                                     <th scope="col" class="sort" data-sort="budget">Duration</th>
                                     <th scope="col" class="sort" data-sort="budget">Seasons</th>
@@ -39,116 +41,156 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @foreach ($movies as $item)
-                                    <tr id="{{ $item->id }}">
-                                        <td class="budget">
-                                            <img src="{{ asset('storage/uploads/movies/' . $item->image) }}" width="200px"
-                                                height="250px" alt="" srcset="">
-                                        </td>
-                                        <th>
-                                            <span class="name mb-0 text-sm">{{ $item->name }}</span>
-                                        </th>
-                                        <th>
-                                            <span class="name mb-0 text-sm">{{ $item->name_eng }}</span>
-                                        </th>
-                                        <td class="budget">
-                                            {{ $item->slug }}
-                                        </td>
-                                        <td class="budget">
-                                            @if ($item->resolution == 0)
-                                                CAM
-                                            @elseif($item->resolution == 1)
-                                                FullHD
-                                            @elseif($item->resolution == 2)
-                                                HDRip
-                                            @elseif($item->resolution == 3)
-                                                HD
-                                            @endif
-                                        </td>
-                                        <td class="budget">
-                                            {{ $item->duration }}
-                                        </td>
-                                        <td class="budget">
-                                            <select class="form-control season-select" id="exampleFormControlSelect1" data-id="{{ $item->id }}" style="width: 70px">
-                                                <option {{$item->season == 0 ? 'selected' : ''}} value="1">0</option>
-                                                <option {{$item->season == 1 ? 'selected' : ''}} value="1">1</option>
-                                                <option {{$item->season == 2 ? 'selected' : ''}} value="2">2</option>
-                                                <option {{$item->season == 3 ? 'selected' : ''}} value="3">3</option>
-                                                <option {{$item->season == 4 ? 'selected' : ''}} value="4">4</option>
-                                                <option {{$item->season == 5 ? 'selected' : ''}} value="5">5</option>
-                                                <option {{$item->season == 6 ? 'selected' : ''}} value="6">6</option>
-                                                <option {{$item->season == 7 ? 'selected' : ''}} value="7">7</option>
-                                                <option {{$item->season == 8 ? 'selected' : ''}} value="8">8</option>
-                                                <option {{$item->season == 9 ? 'selected' : ''}} value="9">9</option>
-                                                <option {{$item->season == 10 ? 'selected' : ''}} value="10">10</option>
-                                                <option {{$item->season == 11 ? 'selected' : ''}} value="11">11</option>
-                                                <option {{$item->season == 12 ? 'selected' : ''}} value="12">12</option>
-                                                <option {{$item->season == 13 ? 'selected' : ''}} value="13">13</option>
-                                                <option {{$item->season == 14 ? 'selected' : ''}} value="14">14</option>
-                                                <option {{$item->season == 15 ? 'selected' : ''}} value="15">15</option>
-                                                <option {{$item->season == 16 ? 'selected' : ''}} value="16">16</option>
-                                                <option {{$item->season == 17 ? 'selected' : ''}} value="17">17</option>
-                                                <option {{$item->season == 18 ? 'selected' : ''}} value="18">18</option>
-                                                <option {{$item->season == 19 ? 'selected' : ''}} value="19">19</option>
-                                                <option {{$item->season == 20 ? 'selected' : ''}} value="20">20</option>
-                                            </select>                                           
-                                        </td>
-                                        <td class="budget">
-                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$item->trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                        </td>
-                                        <td class="budget">
-                                            {{ $item->category->name }}
-                                        </td>
-                                        <td class="budget">
-                                            @foreach ($item->movie_genre as $g)
-                                                {{ $g->name }}
-                                            @endforeach
-                                        </td>
-                                        <td class="budget">
-                                            {{ $item->country->name }}
-                                        </td>
-                                        <td class="budget">
-                                            <input type="text" class="form-control datepicker1" readonly name="year_change_quick" data-id="{{$item->id}}" style="width: 60px;" value="{{ $item->year_release }}" />
-                                        </td>
-                                        <td class="budget">
-                                            @if ($item->subtitle == 1)
-                                               Phụ đề
-                                            @else
-                                                Thuyết minh
-                                            @endif
-                                        </td>
-                                        <td class="budget">
-                                            @if ($item->status == 1)
-                                                Hiển Thị
-                                            @else
-                                                Ẩn
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-dot mr-4">
-                                                <span class="status">{{ $item->created_at }}</span>
-                                            </span>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item btn-update" data-toggle="modal"
-                                                        data-target="#updateModal" data-id="{{ $item->id }}"
-                                                        style="outline: none; cursor: pointer"
-                                                        data-id="{{ $item->id }}">Edit</a>
-                                                    <button
-                                                        onclick="DeleteRow({{ $item->id }}, `{{ route('movies.destroy', ['movie' => $item->id]) }}`)"
-                                                        class="dropdown-item" id="btn-delete" data-id="1"
-                                                        style="outline: none; cursor: pointer">Delete</button>
+                                @if (!isset($movies))
+                                    No Data!!!!
+                                @else
+                                    @foreach ($movies as $item)
+                                        <tr id="{{ $item->id }}">
+                                            <td class="budget">
+                                                <img src="{{ asset('storage/uploads/movies/' . $item->image) }}"
+                                                    width="200px" height="250px" alt="" srcset="">
+                                            </td>
+                                            <th>
+                                                <span class="name mb-0 text-sm">{{ $item->name }}</span>
+                                            </th>
+                                            <th>
+                                                <span class="name mb-0 text-sm">{{ $item->name_eng }}</span>
+                                            </th>
+                                            <td class="budget">
+                                                {{ $item->slug }}
+                                            </td>
+                                            <td class="budget">
+                                                {{ $item->episodes }}
+                                            </td>
+                                            <td class="budget">
+                                                @if ($item->resolution == 0)
+                                                    CAM
+                                                @elseif($item->resolution == 1)
+                                                    FullHD
+                                                @elseif($item->resolution == 2)
+                                                    HDRip
+                                                @elseif($item->resolution == 3)
+                                                    HD
+                                                @endif
+                                            </td>
+                                            <td class="budget">
+                                                {{ $item->duration }}
+                                            </td>
+                                            <td class="budget">
+                                                <select class="form-control season-select" id="exampleFormControlSelect1"
+                                                    data-id="{{ $item->id }}" style="width: 70px">
+                                                    <option {{ $item->season == 0 ? 'selected' : '' }} value="1">0
+                                                    </option>
+                                                    <option {{ $item->season == 1 ? 'selected' : '' }} value="1">1
+                                                    </option>
+                                                    <option {{ $item->season == 2 ? 'selected' : '' }} value="2">2
+                                                    </option>
+                                                    <option {{ $item->season == 3 ? 'selected' : '' }} value="3">3
+                                                    </option>
+                                                    <option {{ $item->season == 4 ? 'selected' : '' }} value="4">4
+                                                    </option>
+                                                    <option {{ $item->season == 5 ? 'selected' : '' }} value="5">5
+                                                    </option>
+                                                    <option {{ $item->season == 6 ? 'selected' : '' }} value="6">6
+                                                    </option>
+                                                    <option {{ $item->season == 7 ? 'selected' : '' }} value="7">7
+                                                    </option>
+                                                    <option {{ $item->season == 8 ? 'selected' : '' }} value="8">8
+                                                    </option>
+                                                    <option {{ $item->season == 9 ? 'selected' : '' }} value="9">9
+                                                    </option>
+                                                    <option {{ $item->season == 10 ? 'selected' : '' }} value="10">10
+                                                    </option>
+                                                    <option {{ $item->season == 11 ? 'selected' : '' }} value="11">11
+                                                    </option>
+                                                    <option {{ $item->season == 12 ? 'selected' : '' }} value="12">12
+                                                    </option>
+                                                    <option {{ $item->season == 13 ? 'selected' : '' }} value="13">13
+                                                    </option>
+                                                    <option {{ $item->season == 14 ? 'selected' : '' }} value="14">14
+                                                    </option>
+                                                    <option {{ $item->season == 15 ? 'selected' : '' }} value="15">15
+                                                    </option>
+                                                    <option {{ $item->season == 16 ? 'selected' : '' }} value="16">16
+                                                    </option>
+                                                    <option {{ $item->season == 17 ? 'selected' : '' }} value="17">17
+                                                    </option>
+                                                    <option {{ $item->season == 18 ? 'selected' : '' }} value="18">18
+                                                    </option>
+                                                    <option {{ $item->season == 19 ? 'selected' : '' }} value="19">19
+                                                    </option>
+                                                    <option {{ $item->season == 20 ? 'selected' : '' }} value="20">20
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td class="budget">
+                                                <iframe width="560" height="315"
+                                                    src="https://www.youtube.com/embed/{{ $item->trailer }}"
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen></iframe>
+                                            </td>
+                                            <td class="align-items-center">
+                                                @foreach ($item->movie_category as $cate_movie)
+                                                    <span class="badge badge-primary font-weight-bold"
+                                                        style="font-size: 10px">{{ $cate_movie->name }}</span>
+                                                @endforeach
+                                            </td>
+                                            <td class="budget d-flex flex-wrap align-items-center">
+                                                @foreach ($item->movie_genre as $g)
+                                                    <span class="badge badge-primary font-weight-bold mb-2"
+                                                        style="font-size: 10px">{{ $g->name }}</span>
+                                                @endforeach
+                                            </td>
+                                            <td class="budget">
+                                                {{ $item->country->name }}
+                                            </td>
+                                            <td class="budget">
+                                                <input type="text" class="form-control datepicker1" readonly
+                                                    name="year_change_quick" data-id="{{ $item->id }}"
+                                                    style="width: 60px;" value="{{ $item->year_release }}" />
+                                            </td>
+                                            <td class="budget">
+                                                @if ($item->subtitle == 1)
+                                                    Phụ đề
+                                                @else
+                                                    Thuyết minh
+                                                @endif
+                                            </td>
+                                            <td class="budget">
+                                                @if ($item->status == 1)
+                                                    Hiển Thị
+                                                @else
+                                                    Ẩn
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-dot mr-4">
+                                                    <span class="status">{{ $item->created_at }}</span>
+                                                </span>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item btn-update" data-toggle="modal"
+                                                            data-target="#updateModal" data-id="{{ $item->id }}"
+                                                            style="outline: none; cursor: pointer"
+                                                            data-id="{{ $item->id }}">Edit</a>
+                                                        <button
+                                                            onclick="DeleteRow({{ $item->id }}, `{{ route('movies.destroy', ['movie' => $item->id]) }}`)"
+                                                            class="dropdown-item" id="btn-delete" data-id="1"
+                                                            style="outline: none; cursor: pointer">Delete</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -163,129 +205,143 @@
                 </div>
             </div>
         </div>
-{{-- create a movie --}}
-        <div class="modal fade eModal" id="eModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        {{-- create a movie --}}
+        <div class="modal fade eModal" id="eModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create a movie</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create a movie</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-                <div class="modal-body">
-                    <ul class="errors"></ul>
-                    <form method="post" id="CreateMovie" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter name"
-                                        id="slug" onkeyup="ChangeToSlug()" name="name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Name Eng</label>
-                                    <input type="text" class="form-control" placeholder="Enter name eng"
-                                        id="name_eng" name="name_eng">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Duration</label>
-                                    <input type="text" class="form-control" placeholder="Enter duration of movie" name="duration">
-                                </div>
-                                <div class="form-group">
-                                    <textarea name="description" id="description" class="form-control" id="" cols="30" rows="10"></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Genres</label>
+                    <div class="modal-body">
+                        <ul class="errors"></ul>
+                        <form method="post" id="CreateMovie" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter name"
+                                            id="slug" onkeyup="ChangeToSlug()" name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Name Eng</label>
+                                        <input type="text" class="form-control" placeholder="Enter name eng"
+                                            id="name_eng" name="name_eng">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Duration</label>
+                                        <input type="text" class="form-control" placeholder="Enter duration of movie"
+                                            name="duration">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="description" id="description" class="form-control" id="" cols="30" rows="10"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Genres</label>
                                         @foreach ($genres as $genre)
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="genres[]" id="{{$genre->id}}" value="{{$genre->id}}">
-                                            <label class="custom-control-label" for="{{$genre->id}}">{{$genre->name}}</label>
-                                        </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="genres[]"
+                                                    id="{{ $genre->id }}" value="{{ $genre->id }}">
+                                                <label class="custom-control-label"
+                                                    for="{{ $genre->id }}">{{ $genre->name }}</label>
+                                            </div>
                                         @endforeach
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Country</label>
+                                        <select name="country" class="form-control" id="countrySelect">
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Trailer</label>
+                                        <input type="text" class="form-control" placeholder="Enter trailer of movie"
+                                            name="trailer">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Country</label>
-                                    <select name="country" class="form-control" id="countrySelect">
-                                        @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Trailer</label>
-                                    <input type="text" class="form-control" placeholder="Enter trailer of movie" name="trailer">
-                                </div>
-                            </div>
-                            
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Slug</label>
-                                    <input type="text" class="form-control" placeholder="Enter slug"
-                                        name="slug" id="convert_slug">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Year Release</label>
-                                    <input type="text" class="form-control datepicker2" readonly name="year_release" style="width: 60px;" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Categories</label>
-                                    <select name="categories" class="form-control" id="categoriesSelect">
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Slug</label>
+                                        <input type="text" class="form-control" placeholder="Enter slug"
+                                            name="slug" id="convert_slug">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Episodes</label>
+                                        <input type="text" class="form-control" placeholder="Enter number of episodes"
+                                            name="episodes">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Year Release</label>
+                                        <input type="text" class="form-control datepicker2" readonly
+                                            name="year_release" style="width: 60px;" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Categories</label>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="categories[]"
+                                                    id="{{ $category->id }}-cate" value="{{ $category->id }}">
+                                                <label class="custom-control-label"
+                                                    for="{{ $category->id }}-cate">{{ $category->name }}</label>
+                                            </div>
                                         @endforeach
-                                    </select>
-                                </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Resolution</label>
-                                    <select name="resolution" class="form-control" id="resolutionSelect">
-                                        <option value="1">FullHD</option>
-                                        <option value="0">CAM</option>
-                                        <option value="2">HDRip</option>
-                                        <option value="3">HD</option>
-                                    </select>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Resolution</label>
+                                        <select name="resolution" class="form-control" id="resolutionSelect">
+                                            <option value="1">FullHD</option>
+                                            <option value="0">CAM</option>
+                                            <option value="2">HDRip</option>
+                                            <option value="3">HD</option>
+                                        </select>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Subtitle</label>
-                                    <select name="subtitle" class="form-control" id="subtitleSelect">
-                                        <option value="1">Phụ đề</option>
-                                        <option value="0">Thuyết minh</option>
-                                    </select>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Subtitle</label>
+                                        <select name="subtitle" class="form-control" id="subtitleSelect">
+                                            <option value="1">Phụ đề</option>
+                                            <option value="0">Thuyết minh</option>
+                                        </select>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Status</label>
-                                    <select name="status" class="form-control" id="statusSelect">
-                                        <option value="1">Hiển Thị</option>
-                                        <option value="0">Ẩn</option>
-                                    </select>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Status</label>
+                                        <select name="status" class="form-control" id="statusSelect">
+                                            <option value="1">Hiển Thị</option>
+                                            <option value="0">Ẩn</option>
+                                        </select>
+                                    </div>
 
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="image"
-                                        id="customFileLang" lang="en">
-                                    <label class="custom-file-label" for="customFileLang">Select file</label>
-                                </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="image"
+                                            id="customFileLang" lang="en">
+                                        <label class="custom-file-label" for="customFileLang">Select file</label>
+                                    </div>
 
-                                <div class="form-group">
-                                    <img id="preview-image" width="300px">
+                                    <div class="form-group">
+                                        <img id="preview-image" width="300px">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
+                    </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
-                </div>
-                </form>
-              </div>
             </div>
-          </div>
+        </div>
 
 
 
@@ -320,42 +376,56 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Name Eng</label>
-                                        <input type="text" class="form-control name_eng-update" placeholder="Enter name_eng eng"
-                                            id="name_eng" name="name_eng">
+                                        <input type="text" class="form-control name_eng-update"
+                                            placeholder="Enter name_eng eng" id="name_eng" name="name_eng">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Description</label>
-                                        <textarea name="description" id="description_update" class="form-control" cols="30"
-                                            rows="10"></textarea>
+                                        <textarea name="description" id="description_update" class="form-control" cols="30" rows="10"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Episodes</label>
+                                        <input type="text" class="form-control episodes-update" placeholder="Enter number of episodes"
+                                            name="episodes">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Trailer</label>
-                                        <input type="text" class="form-control trailer_update" placeholder="Enter trailer of movie" name="trailer">
+                                        <input type="text" class="form-control trailer_update"
+                                            placeholder="Enter trailer of movie" name="trailer">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Year Release</label>
-                                        <input type="text" class="form-control datepicker3" readonly name="year_release" style="width: 60px;" />
+                                        <input type="text" class="form-control datepicker3" readonly
+                                            name="year_release" style="width: 60px;" />
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Duration</label>
-                                        <input type="text" class="form-control duration-update" placeholder="Enter duration of movie" name="duration">
+                                        <input type="text" class="form-control duration-update"
+                                            placeholder="Enter duration of movie" name="duration">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Genres</label>
-                                            @foreach ($genres as $genre)
+                                        @foreach ($genres as $genre)
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input genres-update" name="genres[]" id="{{$genre->id}}-{{$genre->name}}" value="{{$genre->id}}">
-                                                <label class="custom-control-label" for="{{$genre->id}}-{{$genre->name}}">{{$genre->name}}</label>
+                                                <input type="checkbox" class="custom-control-input genres-update"
+                                                    name="genres[]" id="{{ $genre->id }}-{{ $genre->name }}"
+                                                    value="{{ $genre->id }}">
+                                                <label class="custom-control-label"
+                                                    for="{{ $genre->id }}-{{ $genre->name }}">{{ $genre->name }}</label>
                                             </div>
-                                            @endforeach
+                                        @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Categories</label>
-                                        <select name="categories" class="form-control category_id" id="categoriesSelect">
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        @foreach ($categories as $category)
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input genres-update"
+                                                    name="categories[]" id="{{ $category->id }}-{{ $category->name }}"
+                                                    value="{{ $category->id }}">
+                                                <label class="custom-control-label"
+                                                    for="{{ $category->id }}-{{ $category->name }}">{{ $category->name }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Country</label>
@@ -455,15 +525,18 @@
             $.ajax({
                 type: "POST",
                 url: "{{ route('movies.UpdateSeason') }}",
-                data: {season: selectSeason, id: id},
+                data: {
+                    season: selectSeason,
+                    id: id
+                },
                 dataType: "json",
                 cache: false,
-                success: function (response) {
+                success: function(response) {
                     Swal.fire(
-                            'Successfully!',
-                            response.message,
-                            'success'
-                        )
+                        'Successfully!',
+                        response.message,
+                        'success'
+                    )
                 }
             });
         });
@@ -527,14 +600,34 @@
                 type: "GET",
                 url: 'get_genres/' + id,
                 success: function(response) {
-                    $.each(response, function( index, value ) {
-                        arr.push(JSON.parse(value.genre_id));
+                    $.each(response, function(index, value) {
+                        arr.push(JSON.stringify(value.genre_id));
+                        $('#updateForm').find(":checkbox[name='genres[]']").each(function(index,
+                            value) {
+                            $(this).prop("checked", ($.inArray($(this).val(), arr) != -
+                                1));
+                        });
+                    });
+                }
+            });
+        });
 
-                        for(i=0;i<arr.length;i++){
-                            $('.genres-update').each(function (index, value) {
-                                $(".genres-update").prop("checked", $(this).val()==arr[i]);
-                            });
-                        }
+        //get categories
+        $(document).on('click', '.btn-update', function(e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            var arr = [];
+            $('.errors').html('');
+            $('.errors').removeClass('alert alert-danger');
+            $.ajax({
+                type: "GET",
+                url: 'get_categories/' + id,
+                success: function(response) {
+                    $.each(response, function(index, value) {
+                        arr.push(JSON.stringify(value.category_id));
+                        $('#updateForm').find(":checkbox[name='categories[]']").each(function(index,value) {
+                            $(this).prop("checked", ($.inArray($(this).val(), arr) != -1));
+                        });
                     });
                 }
             });
@@ -555,6 +648,7 @@
                     $('.slug-update').val(response.movie.slug);
                     $('.duration-update').val(response.movie.duration);
                     $('.trailer_update').val(response.movie.trailer);
+                    $('.episodes-update').val(response.movie.episodes);
                     $('.name_eng-update').val(response.movie.name_eng);
                     $('#description_update').val(YourEditor.data.set(response.movie.description));
                     $('#categoriesSelect option[value="' + response.movie.id_category + '"]').prop(
@@ -565,18 +659,20 @@
                         'selected', true);
                     $('#statusSelect option[value="' + response.movie.status + '"]').prop('selected',
                         true);
-                    $('#resolutionSelect option[value="' + response.movie.resolution + '"]').prop('selected',
+                    $('#resolutionSelect option[value="' + response.movie.resolution + '"]').prop(
+                        'selected',
                         true);
-                    $('#subtitleSelect option[value="' + response.movie.subtitle + '"]').prop('selected',
+                    $('#subtitleSelect option[value="' + response.movie.subtitle + '"]').prop(
+                        'selected',
                         true);
                     // $('.genres-update').each(function (){
                     //     $('.genres-update[name=genres[0]]').prop('checked', true);
                     // });
-                    console.log(response.movie.id_genre);
                     // $('.genres-update[name=genres]').prop('checked', true);
                     $('#id_movie').val(response.movie.id);
                     $('.datepicker3').val(response.movie.year_release);
-                    $("#preview-image-update").attr('src', '/storage/uploads/movies/' + response.movie.image);
+                    $("#preview-image-update").attr('src', '/storage/uploads/movies/' + response.movie
+                        .image);
                     console.log(response.movie);
                 }
             });
@@ -626,6 +722,5 @@
                 });
             });
         });
-
     </script>
 @endsection

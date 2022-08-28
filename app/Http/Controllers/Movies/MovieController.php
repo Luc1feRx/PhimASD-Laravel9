@@ -48,6 +48,11 @@ class MovieController extends Controller
         return response()->json($genres);
     }
 
+    public function getCategories($id){
+        $categories = $this->movieRepository->getCategories($id);
+        return response()->json($categories);
+    }
+
     public function UpdateYearRelease(Request $request){
         $data = $request->all();
         $result = $this->movieRepository->updateYearRelease($data);

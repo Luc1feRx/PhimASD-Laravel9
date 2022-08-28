@@ -24,4 +24,7 @@ interface MovieInterface
 
     //get genres
     public function getGenres($id_movie);
+
+    //get categories
+     public function getCategories($id_movie);
 }
