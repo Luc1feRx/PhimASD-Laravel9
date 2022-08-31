@@ -11,51 +11,36 @@
                 <div class="card">
                     <!-- Card header -->
                     <div class="card-header border-0 d-flex justify-content-between">
-                        <h3 class="mb-0">Movies</h3>
+                        <h3 class="mb-0">Episodes</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eModal">Add
-                            Movie</button>
+                        <button type="button" class="btn btn-primary" data-id="{{ $movie_id }}" id="btn-episodes" data-toggle="modal" data-target="#eModal">Add
+                            Episode</button>
                     </div>
                     <!-- Light table -->
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" class="sort" data-sort="name">Image</th>
-                                    <th scope="col" class="sort" data-sort="name">Name</th>
-                                    <th scope="col" class="sort" data-sort="name">Eng title</th>
+                                    <th scope="col" class="sort" data-sort="name">Name of movie</th>
+                                    <th scope="col" class="sort" data-sort="name">Name of episode</th>
                                     <th scope="col" class="sort" data-sort="budget">Slug</th>
                                     <th scope="col" class="sort" data-sort="budget">Episodes</th>
-                                    <th scope="col" class="sort" data-sort="budget">Resolution</th>
-                                    <th scope="col" class="sort" data-sort="budget">Duration</th>
-                                    <th scope="col" class="sort" data-sort="budget">Seasons</th>
-                                    <th scope="col" class="sort" data-sort="budget">Trailer</th>
-                                    <th scope="col" class="sort" data-sort="budget">Categories</th>
-                                    <th scope="col" class="sort" data-sort="budget">Genres</th>
-                                    <th scope="col" class="sort" data-sort="budget">Country</th>
-                                    <th scope="col" class="sort" data-sort="budget">Years</th>
-                                    <th scope="col" class="sort" data-sort="budget">Subtitle</th>
-                                    <th scope="col" class="sort" data-sort="budget">Status</th>
+                                    <th scope="col" class="sort" data-sort="budget">Film</th>
                                     <th scope="col" class="sort" data-sort="status">Create At</th>
                                     <th scope="col">action</th>
-                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @if (!isset($movies))
+                                @if (!isset($episodes))
                                     No Data!!!!
                                 @else
-                                    @foreach ($movies as $item)
+                                    @foreach ($episodes as $item)
                                         <tr id="{{ $item->id }}">
-                                            <td class="budget">
-                                                <img src="{{ asset('storage/uploads/movies/' . $item->image) }}"
-                                                    width="200px" height="250px" alt="" srcset="">
-                                            </td>
                                             <th>
                                                 <span class="name mb-0 text-sm">{{ $item->name }}</span>
                                             </th>
                                             <th>
-                                                <span class="name mb-0 text-sm">{{ $item->name_eng }}</span>
+                                                <span class="name mb-0 text-sm">{{ $item->nameofep }}</span>
                                             </th>
                                             <td class="budget">
                                                 {{ $item->slug }}
@@ -64,106 +49,7 @@
                                                 {{ $item->episodes }}
                                             </td>
                                             <td class="budget">
-                                                @if ($item->resolution == 0)
-                                                    CAM
-                                                @elseif($item->resolution == 1)
-                                                    FullHD
-                                                @elseif($item->resolution == 2)
-                                                    HDRip
-                                                @elseif($item->resolution == 3)
-                                                    HD
-                                                @endif
-                                            </td>
-                                            <td class="budget">
-                                                {{ $item->duration }}
-                                            </td>
-                                            <td class="budget">
-                                                <select class="form-control season-select" id="exampleFormControlSelect1"
-                                                    data-id="{{ $item->id }}" style="width: 70px">
-                                                    <option {{ $item->season == 0 ? 'selected' : '' }} value="1">0
-                                                    </option>
-                                                    <option {{ $item->season == 1 ? 'selected' : '' }} value="1">1
-                                                    </option>
-                                                    <option {{ $item->season == 2 ? 'selected' : '' }} value="2">2
-                                                    </option>
-                                                    <option {{ $item->season == 3 ? 'selected' : '' }} value="3">3
-                                                    </option>
-                                                    <option {{ $item->season == 4 ? 'selected' : '' }} value="4">4
-                                                    </option>
-                                                    <option {{ $item->season == 5 ? 'selected' : '' }} value="5">5
-                                                    </option>
-                                                    <option {{ $item->season == 6 ? 'selected' : '' }} value="6">6
-                                                    </option>
-                                                    <option {{ $item->season == 7 ? 'selected' : '' }} value="7">7
-                                                    </option>
-                                                    <option {{ $item->season == 8 ? 'selected' : '' }} value="8">8
-                                                    </option>
-                                                    <option {{ $item->season == 9 ? 'selected' : '' }} value="9">9
-                                                    </option>
-                                                    <option {{ $item->season == 10 ? 'selected' : '' }} value="10">10
-                                                    </option>
-                                                    <option {{ $item->season == 11 ? 'selected' : '' }} value="11">11
-                                                    </option>
-                                                    <option {{ $item->season == 12 ? 'selected' : '' }} value="12">12
-                                                    </option>
-                                                    <option {{ $item->season == 13 ? 'selected' : '' }} value="13">13
-                                                    </option>
-                                                    <option {{ $item->season == 14 ? 'selected' : '' }} value="14">14
-                                                    </option>
-                                                    <option {{ $item->season == 15 ? 'selected' : '' }} value="15">15
-                                                    </option>
-                                                    <option {{ $item->season == 16 ? 'selected' : '' }} value="16">16
-                                                    </option>
-                                                    <option {{ $item->season == 17 ? 'selected' : '' }} value="17">17
-                                                    </option>
-                                                    <option {{ $item->season == 18 ? 'selected' : '' }} value="18">18
-                                                    </option>
-                                                    <option {{ $item->season == 19 ? 'selected' : '' }} value="19">19
-                                                    </option>
-                                                    <option {{ $item->season == 20 ? 'selected' : '' }} value="20">20
-                                                    </option>
-                                                </select>
-                                            </td>
-                                            <td class="budget">
-                                                <iframe width="570" height="350"
-                                                    src="https://www.youtube.com/embed/{{ $item->trailer }}"
-                                                    title="YouTube video player" frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>
-                                            </td>
-                                            <td class="align-items-center">
-                                                @foreach ($item->movie_category as $cate_movie)
-                                                    <span class="badge badge-primary font-weight-bold"
-                                                        style="font-size: 10px">{{ $cate_movie->name }}</span>
-                                                @endforeach
-                                            </td>
-                                            <td class="budget d-flex flex-wrap align-items-center">
-                                                @foreach ($item->movie_genre as $g)
-                                                    <span class="badge badge-primary font-weight-bold mb-2"
-                                                        style="font-size: 10px">{{ $g->name }}</span>
-                                                @endforeach
-                                            </td>
-                                            <td class="budget">
-                                                {{ $item->country->name }}
-                                            </td>
-                                            <td class="budget">
-                                                <input type="text" class="form-control datepicker1" readonly
-                                                    name="year_change_quick" data-id="{{ $item->id }}"
-                                                    style="width: 60px;" value="{{ $item->year_release }}" />
-                                            </td>
-                                            <td class="budget">
-                                                @if ($item->subtitle == 1)
-                                                    Phụ đề
-                                                @else
-                                                    Thuyết minh
-                                                @endif
-                                            </td>
-                                            <td class="budget">
-                                                @if ($item->status == 1)
-                                                    Hiển Thị
-                                                @else
-                                                    Ẩn
-                                                @endif
+                                                {!! $item->link_movie !!}
                                             </td>
                                             <td>
                                                 <span class="badge badge-dot mr-4">
@@ -189,9 +75,6 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-right">
-                                                <a href="{{ route('episodes.ListEp', ['id'=> $item->id]) }}" class="btn btn-primary text-white">Episodes Management</a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -202,20 +85,20 @@
                     <div class="card-footer py-4">
                         <nav aria-label="...">
                             <div class="pagination justify-content-end mb-0">
-                                {!! $movies->links() !!}
+                                {!! $episodes->links() !!}
                             </div>
                         </nav>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- create a movie --}}
+        {{-- create a episode --}}
         <div class="modal fade eModal" id="eModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create a movie</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Create a Episode</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -223,117 +106,31 @@
 
                     <div class="modal-body">
                         <ul class="errors"></ul>
-                        <form method="post" id="CreateMovie" enctype="multipart/form-data">
+                        <form method="post" id="CreateEpisode">
                             {{ csrf_field() }}
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
+                                    <input type="hidden" class="form-control" name="movie_id" value="{{ $movie_id }}">
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter name"
-                                            id="slug" onkeyup="ChangeToSlug()" name="name">
+                                        <label for="exampleFormControlSelect1">Name of Episode</label>
+                                        <input type="text" class="form-control" placeholder="Enter name" id="slug"
+                                            onkeyup="ChangeToSlug()" name="nameofep">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Name Eng</label>
-                                        <input type="text" class="form-control" placeholder="Enter name eng"
-                                            id="name_eng" name="name_eng">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Duration</label>
-                                        <input type="text" class="form-control" placeholder="Enter duration of movie"
-                                            name="duration">
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea name="description" id="description" class="form-control" id="" cols="30" rows="10"></textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Genres</label>
-                                        @foreach ($genres as $genre)
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="genres[]"
-                                                    id="{{ $genre->id }}" value="{{ $genre->id }}">
-                                                <label class="custom-control-label"
-                                                    for="{{ $genre->id }}">{{ $genre->name }}</label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Country</label>
-                                        <select name="country" class="form-control" id="countrySelect">
-                                            @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Trailer</label>
-                                        <input type="text" class="form-control" placeholder="Enter trailer of movie"
-                                            name="trailer">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Slug</label>
                                         <input type="text" class="form-control" placeholder="Enter slug"
                                             name="slug" id="convert_slug">
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Link film</label>
+                                        <input type="text" class="form-control" placeholder="Enter link"
+                                            name="link_movie" value='<p><iframe allowfullscreen frameborder="0" height="360px" src="https://short.ink/" width="660px"></iframe></p>'>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleFormControlSelect1">Episodes</label>
-                                        <input type="text" class="form-control" placeholder="Enter number of episodes"
-                                            name="episodes">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Year Release</label>
-                                        <input type="text" class="form-control datepicker2" readonly
-                                            name="year_release" style="width: 60px;" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Categories</label>
-                                        @foreach ($categories as $category)
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="categories[]"
-                                                    id="{{ $category->id }}-cate" value="{{ $category->id }}">
-                                                <label class="custom-control-label"
-                                                    for="{{ $category->id }}-cate">{{ $category->name }}</label>
-                                            </div>
-                                        @endforeach
-                                    </div>
+                                        <select name="episodes" class="form-control" id="EpisodesSelect">
 
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Resolution</label>
-                                        <select name="resolution" class="form-control" id="resolutionSelect">
-                                            <option value="1">FullHD</option>
-                                            <option value="0">CAM</option>
-                                            <option value="2">HDRip</option>
-                                            <option value="3">HD</option>
                                         </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Subtitle</label>
-                                        <select name="subtitle" class="form-control" id="subtitleSelect">
-                                            <option value="1">Phụ đề</option>
-                                            <option value="0">Thuyết minh</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Status</label>
-                                        <select name="status" class="form-control" id="statusSelect">
-                                            <option value="1">Hiển Thị</option>
-                                            <option value="0">Ẩn</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="image"
-                                            id="customFileLang" lang="en">
-                                        <label class="custom-file-label" for="customFileLang">Select file</label>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <img id="preview-image" width="300px">
                                     </div>
                                 </div>
                             </div>
@@ -350,7 +147,7 @@
 
 
         <!-- Update Modal -->
-        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        {{-- <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -483,43 +280,77 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 @endsection
 
 @section('foot')
     <script type="text/javascript">
-        //preview-image-add
         $(document).ready(function() {
-            var image = null;
-            $('#customFileLang').change(function() {
-                let reader = new FileReader();
 
-                reader.onload = (e) => {
-                    $('#preview-image').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(this.files[0]);
-                console.log(this.files[0].name);
+            $('#btn-episodes').click(function() {
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('episodes.SelectEpisodes') }}",
+                    data: {
+                        id_phim: id
+                    },
+                    success: function(data) {
+                        $('#EpisodesSelect').html(data);
+                    }
+                });
             });
 
         });
-        //preview-image-update
+
+        //add new episodes
         $(document).ready(function() {
-            var image = null;
-            $('#customFileUpdate').change(function() {
-                let reader = new FileReader();
+            $('#CreateEpisode').submit(function(e) {
+                e.preventDefault();
+                $('.errors').html('');
+                $('.errors').removeClass('alert alert-danger');
+                $("#btn-save").html('Please Wait...');
+                $("#btn-save").attr("disabled", true);
+                var form = this;
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('episodes.store') }}",
+                    data: new FormData(form),
+                    processData: false,
+                    dataType: "json",
+                    cache: false,
+                    contentType: false,
+                    success: function(response) {
+                        Swal.fire(
+                            'Successfully!',
+                            response.message,
+                            'success'
+                        )
+                        $('.table').load(location.href + ' .table-flush');
+                        setTimeout(() => {
+                            $('#eModal').modal('hide');
+                        }, 1000);
+                        $("#btn-save").html('Save');
+                        $("#btn-save").attr("disabled", false);
 
-                reader.onload = (e) => {
-                    $('#preview-image-update').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(this.files[0]);
-                console.log(this.files[0].name);
+                    },
+                    error: function(jqXHR) {
+                        $('.errors').html("");
+                        $('.errors').addClass('alert alert-danger');
+                        $.each(jqXHR.responseJSON.errors, function(index, error) {
+                            $('.errors').append('<li>' + error + '</li>');
+                        });
+                        $("#btn-save").html('Save');
+                        $("#btn-save").attr("disabled", false);
+                    }
+                });
             });
-
         });
+    </script>
+
+    {{-- <script type="text/javascript">
 
         //change season of movie
         $('.season-select').change(function() {
@@ -545,53 +376,6 @@
             });
         });
 
-        //add movie
-        $(document).ready(function() {
-            $('#CreateMovie').submit(function(e) {
-                e.preventDefault();
-                $('.errors').html('');
-                $('.errors').removeClass('alert alert-danger');
-                // var value = [];
-                // var arr = $('.ads_Checkbox:checked').map(function(){
-                //     value.push(this.value)
-                // }).get();
-                $("#btn-save").html('Please Wait...');
-                $("#btn-save").attr("disabled", true);
-                var form = this;
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('movies.store') }}",
-                    data: new FormData(form),
-                    processData: false,
-                    dataType: "json",
-                    cache: false,
-                    contentType: false,
-                    success: function(data) {
-                        Swal.fire(
-                            'Successfully!',
-                            data.message,
-                            'success'
-                        )
-                        $('.table').load(location.href + ' .table-flush');
-                        setTimeout(() => {
-                            $('#eModal').modal('hide');
-                        }, 1000);
-                        $("#btn-save").html('Save');
-                        $("#btn-save").attr("disabled", false);
-
-                    },
-                    error: function(jqXHR) {
-                        $('.errors').html("");
-                        $('.errors').addClass('alert alert-danger');
-                        $.each(jqXHR.responseJSON.errors, function(index, error) {
-                            $('.errors').append('<li>' + error + '</li>');
-                        });
-                        $("#btn-save").html('Save');
-                        $("#btn-save").attr("disabled", false);
-                    }
-                });
-            });
-        });
 
         //get genres
         $(document).on('click', '.btn-update', function(e) {
@@ -726,5 +510,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endsection

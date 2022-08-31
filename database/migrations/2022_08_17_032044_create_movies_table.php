@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('slug', 100);
-            $table->string('description', 300);
+            $table->text('description');
             $table->string('resolution', 100);
             $table->string('name_eng', 200);
             $table->string('subtitle', 100);

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\Countries\CountriesController;
+use App\Http\Controllers\Episodes\EpisodeController;
 use App\Http\Controllers\Genres\GenreController;
 use App\Http\Controllers\Movies\MovieController;
 use Illuminate\Support\Facades\Auth;
@@ -67,4 +68,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 	Route::post('update_season', [MovieController::class, 'UpdateSeason'])->name('movies.UpdateSeason');
 	Route::get('get_genres/{id}', [MovieController::class, 'getGenres'])->name('movies.getGenres');
 	Route::get('get_categories/{id}', [MovieController::class, 'getCategories'])->name('movies.getCategories');
+
+	//Episodes
+	Route::resource('episodes', EpisodeController::class);
+	Route::get('episodes/list/{id}', [EpisodeController::class, 'ListEp'])->name('episodes.ListEp');
+	Route::get('select-episodes', [EpisodeController::class, 'SelectEpisodes'])->name('episodes.SelectEpisodes');
 });

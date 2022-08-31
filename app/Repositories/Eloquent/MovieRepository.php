@@ -62,6 +62,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             $movie->movie_category()->attach($data['categories']);
             return true;
         } catch (\Throwable $th) {
+            dd($th);
             return false;
         }
         
