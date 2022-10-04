@@ -21,6 +21,8 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
+                                    <th scope="col">action</th>
+                                    <th scope="col"></th>
                                     <th scope="col" class="sort" data-sort="name">Image</th>
                                     <th scope="col" class="sort" data-sort="name">Name</th>
                                     <th scope="col" class="sort" data-sort="name">Eng title</th>
@@ -37,8 +39,6 @@
                                     <th scope="col" class="sort" data-sort="budget">Subtitle</th>
                                     <th scope="col" class="sort" data-sort="budget">Status</th>
                                     <th scope="col" class="sort" data-sort="status">Create At</th>
-                                    <th scope="col">action</th>
-                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -47,6 +47,28 @@
                                 @else
                                     @foreach ($movies as $item)
                                         <tr id="{{ $item->id }}">
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item btn-update" data-toggle="modal"
+                                                            data-target="#updateModal" data-id="{{ $item->id }}"
+                                                            style="outline: none; cursor: pointer"
+                                                            data-id="{{ $item->id }}">Edit</a>
+                                                        <button
+                                                            onclick="DeleteRow({{ $item->id }}, `{{ route('movies.destroy', ['movie' => $item->id]) }}`)"
+                                                            class="dropdown-item" id="btn-delete" data-id="1"
+                                                            style="outline: none; cursor: pointer">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{{ route('episodes.ListEp', ['id'=> $item->id]) }}" class="btn btn-primary text-white">Episodes Management</a>
+                                            </td>
                                             <td class="budget">
                                                 <img src="{{ asset('storage/uploads/movies/' . $item->image) }}"
                                                     width="200px" height="250px" alt="" srcset="">
@@ -169,28 +191,6 @@
                                                 <span class="badge badge-dot mr-4">
                                                     <span class="status">{{ $item->created_at }}</span>
                                                 </span>
-                                            </td>
-                                            <td class="text-right">
-                                                <div class="dropdown">
-                                                    <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item btn-update" data-toggle="modal"
-                                                            data-target="#updateModal" data-id="{{ $item->id }}"
-                                                            style="outline: none; cursor: pointer"
-                                                            data-id="{{ $item->id }}">Edit</a>
-                                                        <button
-                                                            onclick="DeleteRow({{ $item->id }}, `{{ route('movies.destroy', ['movie' => $item->id]) }}`)"
-                                                            class="dropdown-item" id="btn-delete" data-id="1"
-                                                            style="outline: none; cursor: pointer">Delete</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-right">
-                                                <a href="{{ route('episodes.ListEp', ['id'=> $item->id]) }}" class="btn btn-primary text-white">Episodes Management</a>
                                             </td>
                                         </tr>
                                     @endforeach

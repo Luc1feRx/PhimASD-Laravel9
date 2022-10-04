@@ -13,7 +13,8 @@
                     <div class="card-header border-0 d-flex justify-content-between">
                         <h3 class="mb-0">Episodes</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-id="{{ $movie_id }}" id="btn-episodes" data-toggle="modal" data-target="#eModal">Add
+                        <button type="button" class="btn btn-primary" data-id="{{ $movie_id }}" id="btn-episodes"
+                            data-toggle="modal" data-target="#eModal">Add
                             Episode</button>
                     </div>
                     <!-- Light table -->
@@ -21,13 +22,13 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
+                                    <th scope="col">action</th>
                                     <th scope="col" class="sort" data-sort="name">Name of movie</th>
                                     <th scope="col" class="sort" data-sort="name">Name of episode</th>
                                     <th scope="col" class="sort" data-sort="budget">Slug</th>
                                     <th scope="col" class="sort" data-sort="budget">Episodes</th>
                                     <th scope="col" class="sort" data-sort="budget">Film</th>
                                     <th scope="col" class="sort" data-sort="status">Create At</th>
-                                    <th scope="col">action</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -36,6 +37,25 @@
                                 @else
                                     @foreach ($episodes as $item)
                                         <tr id="{{ $item->id }}">
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item btn-update" data-toggle="modal"
+                                                            data-target="#updateModal" data-id="{{ $item->id }}"
+                                                            style="outline: none; cursor: pointer"
+                                                            data-id="{{ $item->id }}">Edit</a>
+                                                        <button
+                                                            onclick="DeleteRow({{ $item->id }}, `{{ route('movies.destroy', ['movie' => $item->id]) }}`)"
+                                                            class="dropdown-item" id="btn-delete" data-id="1"
+                                                            style="outline: none; cursor: pointer">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <th>
                                                 <span class="name mb-0 text-sm">{{ $item->name }}</span>
                                             </th>
@@ -55,25 +75,6 @@
                                                 <span class="badge badge-dot mr-4">
                                                     <span class="status">{{ $item->created_at }}</span>
                                                 </span>
-                                            </td>
-                                            <td class="text-right">
-                                                <div class="dropdown">
-                                                    <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item btn-update" data-toggle="modal"
-                                                            data-target="#updateModal" data-id="{{ $item->id }}"
-                                                            style="outline: none; cursor: pointer"
-                                                            data-id="{{ $item->id }}">Edit</a>
-                                                        <button
-                                                            onclick="DeleteRow({{ $item->id }}, `{{ route('movies.destroy', ['movie' => $item->id]) }}`)"
-                                                            class="dropdown-item" id="btn-delete" data-id="1"
-                                                            style="outline: none; cursor: pointer">Delete</button>
-                                                    </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -124,7 +125,8 @@
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Link film</label>
                                         <input type="text" class="form-control" placeholder="Enter link"
-                                            name="link_movie" value='<p><iframe allowfullscreen frameborder="0" height="360px" src="https://short.ink/" width="660px"></iframe></p>'>
+                                            name="link_movie"
+                                            value='<p><iframe allowfullscreen frameborder="0" height="360px" src="https://short.ink/" width="660px"></iframe></p>'>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Episodes</label>
@@ -139,6 +141,61 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
                     </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        {{-- update a episode --}}
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Updating movie</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="errors-update"></ul>
+                        <form method="post" id="updateForm" enctype="multipart/form-data">
+                            @method('PUT')
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input type="hidden" class="form-control" name="movie_id" value="{{ $movie_id }}">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Name of Episode</label>
+                                        <input type="text" class="form-control nameofepisode" placeholder="Enter name" id="slug"
+                                            onkeyup="ChangeToSlug()" name="nameofep">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Slug</label>
+                                        <input type="text" class="form-control slug" placeholder="Enter slug"
+                                            name="slug" id="convert_slug">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Link film</label>
+                                        <input type="text" class="form-control linkfilm" placeholder="Enter link"
+                                            name="link_movie"
+                                            value='<p><iframe allowfullscreen frameborder="0" height="360px" src="https://short.ink/" width="660px"></iframe></p>'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Episodes</label>
+                                        <select name="episodes" class="form-control episodes" id="EpisodesSelect">
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="update-submit">Update</button>
+                    </div>
+
                     </form>
                 </div>
             </div>
@@ -299,6 +356,7 @@
                     },
                     success: function(data) {
                         $('#EpisodesSelect').html(data);
+                        $('.episodes').html(data);
                     }
                 });
             });
@@ -348,81 +406,8 @@
                 });
             });
         });
-    </script>
 
-    {{-- <script type="text/javascript">
-
-        //change season of movie
-        $('.season-select').change(function() {
-            var selectSeason = $(this).children("option:selected").val();
-            var id = $(this).attr("data-id");
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('movies.UpdateSeason') }}",
-                data: {
-                    season: selectSeason,
-                    id: id
-                },
-                dataType: "json",
-                cache: false,
-                success: function(response) {
-                    Swal.fire(
-                        'Successfully!',
-                        response.message,
-                        'success'
-                    )
-                }
-            });
-        });
-
-
-        //get genres
-        $(document).on('click', '.btn-update', function(e) {
-            e.preventDefault();
-            var id = $(this).attr("data-id");
-            var arr = [];
-            $('.errors').html('');
-            $('.errors').removeClass('alert alert-danger');
-            $.ajax({
-                type: "GET",
-                url: 'get_genres/' + id,
-                success: function(response) {
-                    $.each(response, function(index, value) {
-                        arr.push(JSON.stringify(value.genre_id));
-                        $('#updateForm').find(":checkbox[name='genres[]']").each(function(index,
-                            value) {
-                            $(this).prop("checked", ($.inArray($(this).val(), arr) != -
-                                1));
-                        });
-                    });
-                }
-            });
-        });
-
-        //get categories
-        $(document).on('click', '.btn-update', function(e) {
-            e.preventDefault();
-            var id = $(this).attr("data-id");
-            var arr = [];
-            $('.errors').html('');
-            $('.errors').removeClass('alert alert-danger');
-            $.ajax({
-                type: "GET",
-                url: 'get_categories/' + id,
-                success: function(response) {
-                    $.each(response, function(index, value) {
-                        arr.push(JSON.stringify(value.category_id));
-                        $('#updateForm').find(":checkbox[name='categories[]']").each(function(index,value) {
-                            $(this).prop("checked", ($.inArray($(this).val(), arr) != -1));
-                        });
-                    });
-                }
-            });
-        });
-
-
-        //get data edit movie
+        //get data edit episodes
         $(document).on('click', '.btn-update', function(e) {
             e.preventDefault();
             var id = $(this).attr("data-id");
@@ -430,7 +415,7 @@
             $('.errors').removeClass('alert alert-danger');
             $.ajax({
                 type: "GET",
-                url: 'movies/' + id + '/edit',
+                url: 'episodes/' + id + '/edit',
                 success: function(response) {
                     $('.name-update').val(response.movie.name);
                     $('.slug-update').val(response.movie.slug);
@@ -465,6 +450,9 @@
                 }
             });
         });
+    </script>
+
+    {{-- <script type="text/javascript">
         //update movie
         $(document).ready(function() {
             $('#updateForm').submit(function(e) {
