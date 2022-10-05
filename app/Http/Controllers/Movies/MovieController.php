@@ -34,16 +34,12 @@ class MovieController extends Controller
         $genres = $this->genreRepository->getAll();
         $countries = $this->countryRepository->getAll();
         $list = $this->movieRepository->getMovie(10);
-        // return view('pages.movies.index',[
-        //     'title' => 'Movies List',
-        //     'movies' => $list,
-        //     'categories' => $categories,
-        //     'genres' => $genres,
-        //     'countries' => $countries,
-        // ]);
-        return response()->json([
-            'episodes' => $list,
-            'code' => 200
+        return view('pages.movies.index',[
+            'title' => 'Movies List',
+            'movies' => $list,
+            'categories' => $categories,
+            'genres' => $genres,
+            'countries' => $countries,
         ]);
     }
 

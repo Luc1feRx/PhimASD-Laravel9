@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('name', 200);
             $table->integer('movie_id');
             $table->string('slug', 200);
-            $table->string('link_movie', 300);
+            $table->longText('link1');
+            $table->longText('link2');
+            $table->longText('link3');
             $table->integer('episodes');
             $table->timestamps();
         });
