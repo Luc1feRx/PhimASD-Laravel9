@@ -76,4 +76,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 });
 
 Route::get('all', [MovieController::class, 'index'])->name('movies.all');
-Route::get('episodes/list/{id}', [EpisodeController::class, 'ListEp'])->name('episodes.ListEp');
+Route::get('episodes/list/{id}', [EpisodeController::class, 'ListEp'])->name('episodes.ListEpisode');
