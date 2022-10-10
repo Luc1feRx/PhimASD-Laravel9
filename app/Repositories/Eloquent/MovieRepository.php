@@ -89,7 +89,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
     {
         $result = $this->model::findOrFail($id);
         if($result){
-            Storage::delete('storage/uploads/movies/', $result->image);
+            Storage::disk('s3')->delete("uploads/movies/".$result->image);
             Movie_Genre::whereIn('movie_id', [$result->id])->delete();
             Movie_Category::whereIn('movie_id', [$result->id])->delete();
             Episode::whereIn('movie_id', [$result->id])->delete();
