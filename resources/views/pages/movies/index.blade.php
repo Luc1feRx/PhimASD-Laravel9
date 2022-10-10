@@ -25,24 +25,16 @@
                                     <th scope="col"></th>
                                     <th scope="col" class="sort" data-sort="name">Image</th>
                                     <th scope="col" class="sort" data-sort="name">Name</th>
-                                    <th scope="col" class="sort" data-sort="name">Eng title</th>
-                                    <th scope="col" class="sort" data-sort="budget">Slug</th>
                                     <th scope="col" class="sort" data-sort="budget">Episodes</th>
-                                    <th scope="col" class="sort" data-sort="budget">Resolution</th>
-                                    <th scope="col" class="sort" data-sort="budget">Duration</th>
                                     <th scope="col" class="sort" data-sort="budget">Seasons</th>
-                                    <th scope="col" class="sort" data-sort="budget">Trailer</th>
                                     <th scope="col" class="sort" data-sort="budget">Categories</th>
                                     <th scope="col" class="sort" data-sort="budget">Genres</th>
-                                    <th scope="col" class="sort" data-sort="budget">Country</th>
                                     <th scope="col" class="sort" data-sort="budget">Years</th>
-                                    <th scope="col" class="sort" data-sort="budget">Subtitle</th>
-                                    <th scope="col" class="sort" data-sort="budget">Status</th>
                                     <th scope="col" class="sort" data-sort="status">Create At</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @if (!isset($movies))
+                                @if (!$movies->count())
                                     No Data!!!!
                                 @else
                                     @foreach ($movies as $item)
@@ -70,34 +62,14 @@
                                                 <a href="{{ route('episodes.ListEp', ['id'=> $item->id]) }}" class="btn btn-primary text-white">Episodes Management</a>
                                             </td>
                                             <td class="budget">
-                                                <img src="{{ asset('storage/uploads/movies/' . $item->image) }}"
+                                                <img src="{{ \Storage::disk('s3')->temporaryURL('uploads/movies/'.$item->image, now()->addMinutes(10)) }}"
                                                     width="200px" height="250px" alt="" srcset="">
                                             </td>
                                             <th>
                                                 <span class="name mb-0 text-sm">{{ $item->name }}</span>
                                             </th>
-                                            <th>
-                                                <span class="name mb-0 text-sm">{{ $item->name_eng }}</span>
-                                            </th>
-                                            <td class="budget">
-                                                {{ $item->slug }}
-                                            </td>
                                             <td class="budget">
                                                 {{ $item->episodes }}
-                                            </td>
-                                            <td class="budget">
-                                                @if ($item->resolution == 0)
-                                                    CAM
-                                                @elseif($item->resolution == 1)
-                                                    FullHD
-                                                @elseif($item->resolution == 2)
-                                                    HDRip
-                                                @elseif($item->resolution == 3)
-                                                    HD
-                                                @endif
-                                            </td>
-                                            <td class="budget">
-                                                {{ $item->duration }}
                                             </td>
                                             <td class="budget">
                                                 <select class="form-control season-select" id="exampleFormControlSelect1"
@@ -146,13 +118,13 @@
                                                     </option>
                                                 </select>
                                             </td>
-                                            <td class="budget">
+                                            {{-- <td class="budget">
                                                 <iframe width="570" height="350"
                                                     src="https://www.youtube.com/embed/{{ $item->trailer }}"
                                                     title="YouTube video player" frameborder="0"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                     allowfullscreen></iframe>
-                                            </td>
+                                            </td> --}}
                                             <td class="align-items-center">
                                                 @foreach ($item->movie_category as $cate_movie)
                                                     <span class="badge badge-primary font-weight-bold"
@@ -166,26 +138,9 @@
                                                 @endforeach
                                             </td>
                                             <td class="budget">
-                                                {{ $item->country->name }}
-                                            </td>
-                                            <td class="budget">
                                                 <input type="text" class="form-control datepicker1" readonly
                                                     name="year_change_quick" data-id="{{ $item->id }}"
                                                     style="width: 60px;" value="{{ $item->year_release }}" />
-                                            </td>
-                                            <td class="budget">
-                                                @if ($item->subtitle == 1)
-                                                    Phụ đề
-                                                @else
-                                                    Thuyết minh
-                                                @endif
-                                            </td>
-                                            <td class="budget">
-                                                @if ($item->status == 1)
-                                                    Hiển Thị
-                                                @else
-                                                    Ẩn
-                                                @endif
                                             </td>
                                             <td>
                                                 <span class="badge badge-dot mr-4">

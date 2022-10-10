@@ -163,6 +163,7 @@
                                 'error'
                             )
                             $('.table').load(location.href + ' .table-flush');
+                            console.log(errors);
                         }
                     });
                 }

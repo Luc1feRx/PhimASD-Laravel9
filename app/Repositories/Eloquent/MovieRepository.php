@@ -1,6 +1,9 @@
 <?php 
 namespace App\Repositories\Eloquent;
+
+use App\Models\Episode;
 use App\Models\Movie;
+use App\Models\Movie_Category;
 use App\Models\Movie_Genre;
 use App\Repositories\MovieInterface;
 use Carbon\Carbon;
@@ -49,12 +52,12 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             $movie->created_at = Carbon::now('Asia/Ho_Chi_Minh');
     
             $get_image = $data['image'];
-            $path = "public/uploads/movies/";
+            $path = "uploads/movies/";
             if($get_image){
                 $get_name_image = $get_image->getClientOriginalName();
                 $name_image = current(explode('.',$get_name_image));
                 $new_image = $name_image.rand(0, 9999).".".$get_image->getClientOriginalExtension();
-                $request->file('image')->storeAs($path, $new_image);
+                $request->file('image')->storeAs($path, $new_image, 's3');
                 $movie->image = $new_image;
             }
             $movie->save();
@@ -87,8 +90,9 @@ class MovieRepository extends BaseRepository implements MovieInterface{
         $result = $this->model::findOrFail($id);
         if($result){
             Storage::delete('storage/uploads/movies/', $result->image);
-            unlink('storage/uploads/movies/' . $result->image);
             Movie_Genre::whereIn('movie_id', [$result->id])->delete();
+            Movie_Category::whereIn('movie_id', [$result->id])->delete();
+            Episode::whereIn('movie_id', [$result->id])->delete();
             $result->delete();
             return $result;
         }
@@ -114,15 +118,13 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             $movie->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
     
             $get_image = $data['image'];
-            $path = "public/uploads/movies/";
+            $path = "uploads/movies/";
             if($get_image){
                 $get_name_image = $get_image->getClientOriginalName();
                 $name_image = current(explode('.',$get_name_image));
                 $new_image = $name_image.rand(0, 9999).".".$get_image->getClientOriginalExtension();
-                $request->file('image')->storeAs($path, $new_image);
-                Storage::delete('storage/uploads/movies/', $movie->image);
-
-                unlink('storage/uploads/movies/' . $movie->image);
+                Storage::disk('s3')->delete($path."/".$new_image);
+                $request->file('image')->storeAs($path, $new_image, 's3');
                 $movie->image = $new_image;
             }
             foreach($data['genres'] as $key => $v){
