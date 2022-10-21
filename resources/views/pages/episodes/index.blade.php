@@ -27,7 +27,9 @@
                                     <th scope="col" class="sort" data-sort="name">Name of episode</th>
                                     <th scope="col" class="sort" data-sort="budget">Slug</th>
                                     <th scope="col" class="sort" data-sort="budget">Episodes</th>
-                                    <th scope="col" class="sort" data-sort="budget">Film</th>
+                                    <th scope="col" class="sort" data-sort="budget">Link 1</th>
+                                    <th scope="col" class="sort" data-sort="budget">Link 2</th>
+                                    <th scope="col" class="sort" data-sort="budget">Link 3</th>
                                     <th scope="col" class="sort" data-sort="status">Create At</th>
                                 </tr>
                             </thead>
@@ -69,7 +71,13 @@
                                                 {{ $item->episodes }}
                                             </td>
                                             <td class="budget">
-                                                {!! $item->link_movie !!}
+                                                {!! $item->link1 !!}
+                                            </td>
+                                            <td class="budget">
+                                                {!! $item->link2 !!}
+                                            </td>
+                                            <td class="budget">
+                                                {!! $item->link3 !!}
                                             </td>
                                             <td>
                                                 <span class="badge badge-dot mr-4">
@@ -123,10 +131,20 @@
                                             name="slug" id="convert_slug">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Link film</label>
+                                        <label for="exampleFormControlSelect1">Link 1 (ggdrive)</label>
                                         <input type="text" class="form-control" placeholder="Enter link"
-                                            name="link_movie"
-                                            value='<p><iframe allowfullscreen frameborder="0" height="360px" src="https://short.ink/" width="660px"></iframe></p>'>
+                                            name="link1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Link 2 (Hydrax)</label>
+                                        <input type="text" class="form-control" placeholder="Enter link"
+                                            name="link2" value='<p><iframe allowfullscreen frameborder="0" height="360px" src="https://short.ink/" width="660px"></iframe></p>'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Link 3</label>
+                                        <input type="text" class="form-control" placeholder="Enter link"
+                                            name="link3"
+                                            value='<div class="flowplayer" style="width:560px;height:350px"><video controls><source type="video/mp4" src=""></video></div>'>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Episodes</label>
@@ -177,9 +195,20 @@
                                             name="slug" id="convert_slug">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Link film</label>
-                                        <input type="text" class="form-control linkfilm" placeholder="Enter link"
-                                            name="link_movie"
+                                        <label for="exampleFormControlSelect1">Link 1 (ggdrive)</label>
+                                        <input type="text" class="form-control" placeholder="Enter link"
+                                            name="link1"
+                                            value='<p><iframe allowfullscreen frameborder="0" height="360px" src="" width="660px"></iframe></p>'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Link 2 (OK.ru)</label>
+                                        <input type="text" class="form-control" placeholder="Enter link"
+                                            name="link2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Link 3 (Hydrax)</label>
+                                        <input type="text" class="form-control" placeholder="Enter link"
+                                            name="link3"
                                             value='<p><iframe allowfullscreen frameborder="0" height="360px" src="https://short.ink/" width="660px"></iframe></p>'>
                                     </div>
                                     <div class="form-group">

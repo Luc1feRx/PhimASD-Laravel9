@@ -18,7 +18,7 @@ class EpisodeRepository extends BaseRepository implements EpisodeInterface
     public function getEpisode($id)
     {
         return DB::table('episodes')->join('movies', 'episodes.movie_id', '=', 'movies.id')
-        ->select('movies.name','movies.id', 'episodes.id', 'episodes.nameofep', 'episodes.slug', 'episodes.link_movie', 'episodes.episodes', 'episodes.created_at')
+        ->select('movies.name','movies.id', 'episodes.id', 'episodes.nameofep', 'episodes.slug', 'episodes.link1','episodes.link2','episodes.link3', 'episodes.episodes', 'episodes.created_at')
         ->where('movies.id', '=', $id)->paginate(10);
     }
 
@@ -28,7 +28,9 @@ class EpisodeRepository extends BaseRepository implements EpisodeInterface
             $episode->nameofep = $data['nameofep'];
             $episode->slug = $data['slug'];
             $episode->movie_id = $data['movie_id'];
-            $episode->link_movie = $data['link_movie'];
+            $episode->link1 = $data['link1'];
+            $episode->link2 = $data['link2'];
+            $episode->link3 = $data['link3'];
             $episode->episodes = $data['episodes'];
             $episode->created_at = Carbon::now('Asia/Ho_Chi_Minh');
             $episode->save();

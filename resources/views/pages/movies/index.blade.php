@@ -60,6 +60,7 @@
                                             </td>
                                             <td class="text-right">
                                                 <a href="{{ route('episodes.ListEp', ['id'=> $item->id]) }}" class="btn btn-primary text-white">Episodes Management</a>
+                                                <a href="{{ route('actors.getAllActorsByID', ['id'=> $item->id]) }}" class="btn btn-primary text-white">Actors Management</a>
                                             </td>
                                             <td class="budget">
                                                 <img src="{{ \Storage::disk('s3')->temporaryURL('uploads/movies/'.$item->image, now()->addMinutes(10)) }}"

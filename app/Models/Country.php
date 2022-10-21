@@ -15,4 +15,12 @@ class Country extends Model
         'name',
         'slug',
     ];
+
+    public function movie(){
+        return $this->hasMany(Movie::class);
+    }
+
+    public function actor(){
+        return $this->hasMany(Actor::class, 'country_id', 'id');
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Actors\ActorController;
 use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\Countries\CountriesController;
 use App\Http\Controllers\Episodes\EpisodeController;
@@ -19,16 +20,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Auth::routes();
+
 Route::get('/', function () {
 	return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
@@ -73,6 +73,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 	Route::resource('episodes', EpisodeController::class);
 	Route::get('episodes/list/{id}', [EpisodeController::class, 'ListEp'])->name('episodes.ListEp');
 	Route::get('select-episodes', [EpisodeController::class, 'SelectEpisodes'])->name('episodes.SelectEpisodes');
+
+	//Actors
+	Route::get('actors/create/movie-{id}', [ActorController::class, 'create'])->name('actors.create');
+	Route::get('actors/edit/movie-{id_movie}/{id}', [ActorController::class, 'edit'])->name('actors.edit');
+	Route::post('actors/create', [ActorController::class, 'store'])->name('actors.store');
+	Route::post('actors/update/{id}', [ActorController::class, 'update'])->name('actors.update');
+	Route::delete('actors/destroy/{actor}', [ActorController::class, 'destroy'])->name('actors.destroy');
+	Route::get('list-actors/movie-{id}', [ActorController::class, 'getAllActorsByID'])->name('actors.getAllActorsByID');
+	Route::get('list-images/{id}', [ActorController::class, 'getImagesByActorID'])->name('actors.viewImages');
 });
 
 Route::get('all', [MovieController::class, 'index'])->name('movies.all');

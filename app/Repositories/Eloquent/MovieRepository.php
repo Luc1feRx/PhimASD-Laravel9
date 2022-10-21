@@ -123,7 +123,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
                 $get_name_image = $get_image->getClientOriginalName();
                 $name_image = current(explode('.',$get_name_image));
                 $new_image = $name_image.rand(0, 9999).".".$get_image->getClientOriginalExtension();
-                Storage::disk('s3')->delete($path."/".$new_image);
+                Storage::disk('s3')->delete($path."/".$movie->image);
                 $request->file('image')->storeAs($path, $new_image, 's3');
                 $movie->image = $new_image;
             }
