@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
 	//Actors
 	Route::get('actors/create/movie-{id}', [ActorController::class, 'create'])->name('actors.create');
-	Route::get('actors/edit/movie-{id_movie}/{id}', [ActorController::class, 'edit'])->name('actors.edit');
+	Route::get('actors/edit/{id}', [ActorController::class, 'edit'])->name('actors.edit');
 	Route::post('actors/create', [ActorController::class, 'store'])->name('actors.store');
 	Route::post('actors/update/{id}', [ActorController::class, 'update'])->name('actors.update');
 	Route::delete('actors/destroy/{actor}', [ActorController::class, 'destroy'])->name('actors.destroy');
