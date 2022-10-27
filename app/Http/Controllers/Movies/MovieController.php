@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Movies;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MovieRequest;
 use App\Http\Resources\MovieResource;
+use App\Models\Actor;
 use App\Models\Category;
 use App\Models\Movie;
 use App\Repositories\Eloquent\CategoryRepository;
@@ -33,6 +34,7 @@ class MovieController extends Controller
         $categories = $this->categoryRepository->getAll();
         $genres = $this->genreRepository->getAll();
         $countries = $this->countryRepository->getAll();
+        $actors = Actor::orderBy('id', 'desc')->get();
         $list = $this->movieRepository->getMovie(10);
         return view('pages.movies.index',[
             'title' => 'Movies List',
@@ -40,6 +42,7 @@ class MovieController extends Controller
             'categories' => $categories,
             'genres' => $genres,
             'countries' => $countries,
+            'actors' => $actors
         ]);
     }
 

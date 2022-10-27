@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Actors\ActorController;
 use App\Http\Controllers\Categories\CategoryController;
+use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Countries\CountriesController;
 use App\Http\Controllers\Episodes\EpisodeController;
 use App\Http\Controllers\Genres\GenreController;
@@ -75,14 +76,21 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 	Route::get('select-episodes', [EpisodeController::class, 'SelectEpisodes'])->name('episodes.SelectEpisodes');
 
 	//Actors
-	Route::get('actors/create/movie-{id}', [ActorController::class, 'create'])->name('actors.create');
-	Route::get('actors/edit/{id}', [ActorController::class, 'edit'])->name('actors.edit');
-	Route::post('actors/create', [ActorController::class, 'store'])->name('actors.store');
-	Route::post('actors/update/{id}', [ActorController::class, 'update'])->name('actors.update');
-	Route::delete('actors/destroy/{actor}', [ActorController::class, 'destroy'])->name('actors.destroy');
-	Route::get('list-actors/movie-{id}', [ActorController::class, 'getAllActorsByID'])->name('actors.getAllActorsByID');
+	Route::group(['prefix' => 'actors'], function () {
+		Route::get('create', [ActorController::class, 'create'])->name('actors.create');
+		Route::get('edit/{id}', [ActorController::class, 'edit'])->name('actors.edit');
+		Route::post('create', [ActorController::class, 'store'])->name('actors.store');
+		Route::post('update/{id}', [ActorController::class, 'update'])->name('actors.update');
+		Route::delete('destroy/{actor}', [ActorController::class, 'destroy'])->name('actors.destroy');
+		Route::get('index', [ActorController::class, 'index'])->name('actors.index');
+	});
 	Route::get('list-images/{id}', [ActorController::class, 'getImagesByActorID'])->name('actors.viewImages');
 });
 
 Route::get('all', [MovieController::class, 'index'])->name('movies.all');
 Route::get('episodes/list/{id}', [EpisodeController::class, 'ListEp'])->name('episodes.ListEpisode');
+
+Route::group(['prefix' => 'client'], function () {
+	Route::get('/home', [ClientController::class, 'index']);
+	Route::get('/categories/{slug}', [ClientController::class, 'categoryDetail']);
+});

@@ -22,7 +22,6 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="hidden" name="movie_id" value="{{$movie_id}}">
                                         <label class="form-control-label" for="input-username">Name</label>
                                         <input type="text" class="form-control"
                                         id="slug" onkeyup="ChangeToSlug()" placeholder="Enter name of actor" name="name">

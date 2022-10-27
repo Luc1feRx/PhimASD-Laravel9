@@ -22,17 +22,14 @@ class ActorController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    public function getAllActorsByID($id){
-        $list_actors = Actor::with('movie')->with('country')->where('movie_id', $id)->paginate(10);
+        $list_actors = Actor::with('movie')->with('country')->paginate(10);
         return view('pages.actors.index',[
             'title' => 'Actors List',
             'actors' => $list_actors,
             'movie_id' => request()->id
         ]);
     }
+
 
     public function getImagesByActorID($id){
         $list_images = Actors_Images::where('actor_id', $id)->with('actors')->get();
@@ -47,12 +44,11 @@ class ActorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
         $countries = Country::all();
         return view('pages.actors.create', [
             'title' => 'Create an actor',
-            'movie_id' => $id,
             'countries' => $countries
         ]);
     }
@@ -64,7 +60,6 @@ class ActorController extends Controller
             $actor = new Actor();
             $actor->name = $data['name'];
             $actor->slug = $data['slug'];
-            $actor->movie_id = $data['movie_id'];
             $actor->dob = $data['dob'];
             $actor->sex = $data['sex'];
             $actor->bio = $data['bio'];
@@ -96,7 +91,7 @@ class ActorController extends Controller
                 }
             }
             
-            return redirect()->route('movies.index')->with('status', 'An actor successfully Added');
+            return redirect()->route('actors.index')->with('status', 'An actor successfully Added');
 
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -146,7 +141,6 @@ class ActorController extends Controller
             $data = $request->all();
             $actor->name = $data['name'];
             $actor->slug = $data['slug'];
-            $actor->movie_id = $data['movie_id'];
             $actor->dob = $data['dob'];
             $actor->sex = $data['sex'];
             $actor->bio = $data['bio'];

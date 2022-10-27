@@ -3,6 +3,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Episode;
 use App\Models\Movie;
+use App\Models\Movie_Actor;
 use App\Models\Movie_Category;
 use App\Models\Movie_Genre;
 use App\Repositories\MovieInterface;
@@ -16,7 +17,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
     }
 
     public function getMovie($items = 0){
-        return $this->model::with('category', 'movie_genre', 'country')->orderBy('id', 'desc')->paginate($items);
+        return $this->model::with('category', 'movie_genre', 'country', 'movie_actor')->orderBy('id', 'desc')->paginate($items);
     }
 
     public function getGenres($id){
@@ -39,13 +40,16 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             $movie->duration = $data['duration'];
             $movie->year_release = $data['year_release'];
             $movie->name_eng = $data['name_eng'];
+            $movie->price = $data['price'];
             $movie->subtitle = $data['subtitle'];
-            $movie->id_genre = $data['genres'];
             foreach($data['genres'] as $key => $value){
                 $movie->id_genre = $value[0];
             }
             foreach($data['categories'] as $key => $cate){
                 $movie->id_category = $cate[0];
+            }
+            foreach($data['actors'] as $key => $actor){
+                $movie->id_actor = $actor[0];
             }
             $movie->id_country = $data['country'];
             $movie->status = $data['status'];
@@ -62,6 +66,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             }
             $movie->save();
             $movie->movie_genre()->attach($data['genres']);
+            $movie->movie_actor()->attach($data['actors']);
             $movie->movie_category()->attach($data['categories']);
             return true;
         } catch (\Throwable $th) {
@@ -92,6 +97,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             Storage::disk('s3')->delete("uploads/movies/".$result->image);
             Movie_Genre::whereIn('movie_id', [$result->id])->delete();
             Movie_Category::whereIn('movie_id', [$result->id])->delete();
+            Movie_Actor::whereIn('movie_id', [$result->id])->delete();
             Episode::whereIn('movie_id', [$result->id])->delete();
             $result->delete();
             return $result;
@@ -105,6 +111,7 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             $movie = $this->model::findOrFail($id);
             $movie->name = $data['name'];
             $movie->slug = $data['slug'];
+            $movie->price = $data['price'];
             $movie->description = $data['description'];
             $movie->resolution = $data['resolution'];
             $movie->trailer = $data['trailer'];
@@ -133,10 +140,15 @@ class MovieRepository extends BaseRepository implements MovieInterface{
             foreach($data['categories'] as $key => $cate){
                 $movie->id_category = $cate[0];
             }
+
+            foreach($data['actors'] as $key => $actors){
+                $movie->id_actor = $actors[0];
+            }
             $movie->save();
 
             $movie->movie_genre()->sync($data['genres']);
             $movie->movie_category()->sync($data['categories']);
+            $movie->movie_actor()->sync($data['actors']);
             return true;
         } catch (\Throwable $th) {
             return false;

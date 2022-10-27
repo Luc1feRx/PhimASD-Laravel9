@@ -12,7 +12,7 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <a style="color: aliceblue" class="btn btn-primary"
-                            href="{{ route('movies.index') }}">Quay về</a>
+                            href="{{ route('actors.index') }}">Quay về</a>
                         </div>
                     </div>
                 </div>

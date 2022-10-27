@@ -27,8 +27,10 @@ return new class extends Migration
             $table->integer('id_category');
             $table->integer('id_genre');
             $table->integer('id_country');
+            $table->integer('id_actor');
             $table->string('image', 300);
             $table->integer('status');
+            $table->decimal('price')->default(0);
             $table->timestamps();
         });
     }

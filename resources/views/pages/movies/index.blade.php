@@ -25,11 +25,13 @@
                                     <th scope="col"></th>
                                     <th scope="col" class="sort" data-sort="name">Image</th>
                                     <th scope="col" class="sort" data-sort="name">Name</th>
+                                    <th scope="col" class="sort" data-sort="name">Price</th>
                                     <th scope="col" class="sort" data-sort="budget">Episodes</th>
                                     <th scope="col" class="sort" data-sort="budget">Seasons</th>
                                     <th scope="col" class="sort" data-sort="budget">Categories</th>
                                     <th scope="col" class="sort" data-sort="budget">Genres</th>
                                     <th scope="col" class="sort" data-sort="budget">Years</th>
+                                    <th scope="col" class="sort" data-sort="budget">Actors</th>
                                     <th scope="col" class="sort" data-sort="status">Create At</th>
                                 </tr>
                             </thead>
@@ -60,7 +62,6 @@
                                             </td>
                                             <td class="text-right">
                                                 <a href="{{ route('episodes.ListEp', ['id'=> $item->id]) }}" class="btn btn-primary text-white">Episodes Management</a>
-                                                <a href="{{ route('actors.getAllActorsByID', ['id'=> $item->id]) }}" class="btn btn-primary text-white">Actors Management</a>
                                             </td>
                                             <td class="budget">
                                                 <img src="{{ \Storage::disk('s3')->temporaryURL('uploads/movies/'.$item->image, now()->addMinutes(10)) }}"
@@ -69,6 +70,9 @@
                                             <th>
                                                 <span class="name mb-0 text-sm">{{ $item->name }}</span>
                                             </th>
+                                            <td class="budget">
+                                                {{ \Currency::currency("VND")->format($item->price) }}
+                                            </td>
                                             <td class="budget">
                                                 {{ $item->episodes }}
                                             </td>
@@ -119,13 +123,6 @@
                                                     </option>
                                                 </select>
                                             </td>
-                                            {{-- <td class="budget">
-                                                <iframe width="570" height="350"
-                                                    src="https://www.youtube.com/embed/{{ $item->trailer }}"
-                                                    title="YouTube video player" frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>
-                                            </td> --}}
                                             <td class="align-items-center">
                                                 @foreach ($item->movie_category as $cate_movie)
                                                     <span class="badge badge-primary font-weight-bold"
@@ -142,6 +139,12 @@
                                                 <input type="text" class="form-control datepicker1" readonly
                                                     name="year_change_quick" data-id="{{ $item->id }}"
                                                     style="width: 60px;" value="{{ $item->year_release }}" />
+                                            </td>
+                                            <td class="budget d-flex flex-wrap align-items-center">
+                                                @foreach ($item->movie_actor as $ac)
+                                                    <span class="badge badge-primary font-weight-bold mb-2"
+                                                        style="font-size: 10px">{{ $ac->name }}</span>
+                                                @endforeach
                                             </td>
                                             <td>
                                                 <span class="badge badge-dot mr-4">
@@ -222,6 +225,17 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Actors</label>
+                                        @foreach ($actors as $actor)
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="actors[]"
+                                                    id="{{ $actor->id }}-actor" value="{{ $actor->id }}">
+                                                <label class="custom-control-label"
+                                                    for="{{ $actor->id }}-actor">{{ $actor->name }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleFormControlSelect1">Trailer</label>
                                         <input type="text" class="form-control" placeholder="Enter trailer of movie"
                                             name="trailer">
@@ -238,6 +252,11 @@
                                         <label for="exampleFormControlSelect1">Episodes</label>
                                         <input type="text" class="form-control" placeholder="Enter number of episodes"
                                             name="episodes">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Price</label>
+                                        <input type="number" class="form-control" placeholder="Enter price"
+                                            name="price">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Year Release</label>
@@ -349,6 +368,11 @@
                                             name="episodes">
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Price</label>
+                                        <input type="number" class="form-control" placeholder="Enter price"
+                                            name="price">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleFormControlSelect1">Trailer</label>
                                         <input type="text" class="form-control trailer_update"
                                             placeholder="Enter trailer of movie" name="trailer">
@@ -394,6 +418,17 @@
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Actors</label>
+                                        @foreach ($actors as $actor)
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="actors[]"
+                                                    id="{{ $actor->id }}-actor" value="{{ $actor->id }}">
+                                                <label class="custom-control-label"
+                                                    for="{{ $actor->id }}-actor">{{ $actor->name }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Resolution</label>
