@@ -424,9 +424,9 @@
                                         @foreach ($actors as $actor)
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" name="actors[]"
-                                                    id="{{ $actor->id }}-actor" value="{{ $actor->id }}">
+                                                    id="{{ $actor->id }}-actors" value="{{ $actor->id }}">
                                                 <label class="custom-control-label"
-                                                    for="{{ $actor->id }}-actor">{{ $actor->name }}</label>
+                                                    for="{{ $actor->id }}-actors">{{ $actor->name }}</label>
                                             </div>
                                         @endforeach
                                     </div>

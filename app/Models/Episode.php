@@ -18,4 +18,8 @@ class Episode extends Model
         'link_movie',
         'episodes'
     ];
+
+    public function movie(){
+        return $this->belongsTo(Movie::class, 'movie_id', 'id');
+    }
 }

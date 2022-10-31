@@ -93,4 +93,6 @@ Route::get('episodes/list/{id}', [EpisodeController::class, 'ListEp'])->name('ep
 Route::group(['prefix' => 'client'], function () {
 	Route::get('/home', [ClientController::class, 'index']);
 	Route::get('/categories/{slug}', [ClientController::class, 'categoryDetail']);
+	Route::get('/movie/{slug}', [ClientController::class, 'MovieDetail'])->name('movie.detail');
+	Route::get('watch/movie/{slug}/episode-{episode}', [ClientController::class, 'WatchMovie'])->name('movie.watch');
 });

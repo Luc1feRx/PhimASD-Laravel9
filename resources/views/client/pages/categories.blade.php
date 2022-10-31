@@ -29,10 +29,10 @@
                             @foreach ($cate_movies->movie as $getmovie)
                                 <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-27021">
                                     <div class="halim-item">
-                                        <a class="halim-thumb" href="chitiet.php" title="VŨNG LẦY PHẦN 1">
+                                        <a class="halim-thumb" href="{{ route('movie.detail', ['slug'=>$getmovie->slug]) }}" title="{{$getmovie->name}}">
                                             <figure><img class="lazy img-responsive"
                                                     src="{{ \Storage::disk('s3')->temporaryURL('uploads/movies/' . $getmovie->image, now()->addMinutes(10)) }}"
-                                                    alt="VŨNG LẦY PHẦN 1" title="VŨNG LẦY PHẦN 1"></figure>
+                                                    alt="{{$getmovie->name}}" title="{{$getmovie->name}}"></figure>
                                             <span class="status">{{$getmovie->episodes}}/{{$getmovie->episodes}}</span><span class="episode"><i class="fa fa-play"
                                                     aria-hidden="true"></i>{{$getmovie->subtitle == 1 ? 'Phụ đề' : 'Thuyết Minh'}}</span>
                                             <div class="icon_overlay"></div>

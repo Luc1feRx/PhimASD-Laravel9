@@ -127,7 +127,7 @@
                                 @foreach ($category_movie->movie as $amovie)
                                     <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
                                         <div class="halim-item">
-                                            <a class="halim-thumb" href="chitiet.php">
+                                            <a class="halim-thumb" href="{{ route('movie.detail', ['slug'=>$amovie->slug]) }}">
                                                 <figure><img class="lazy img-responsive"
                                                         src="{{ \Storage::disk('s3')->temporaryURL('uploads/movies/'.$amovie->image, now()->addMinutes(10)) }}"
                                                         alt="{{$amovie->name}}"
