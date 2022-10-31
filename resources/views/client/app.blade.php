@@ -36,6 +36,7 @@
 
     <link rel='stylesheet' id='bootstrap-css' href='{{ asset('client/css/bootstrap.min.css?ver=5.7.2') }}' media='all' />
     <link rel='stylesheet' id='style-css' href='{{ asset('client/css/style.css?ver=5.7.2') }}' media='all' />
+    <link rel='stylesheet' id='index-css' href='{{ asset('client/css/index.css') }}' media='all' />
     <link rel='stylesheet' id='wp-block-library-css' href='{{ asset('client/css/style.min.css?ver=5.7.2') }}' media='all' />
     <script type='text/javascript' src='{{ asset('client/js/jquery.min.js?ver=5.7.2') }}' id='halim-jquery-js'></script>
     <style type="text/css" id="wp-custom-css">

@@ -95,4 +95,5 @@ Route::group(['prefix' => 'client'], function () {
 	Route::get('/categories/{slug}', [ClientController::class, 'categoryDetail']);
 	Route::get('/movie/{slug}', [ClientController::class, 'MovieDetail'])->name('movie.detail');
 	Route::get('watch/movie/{slug}/episode-{episode}', [ClientController::class, 'WatchMovie'])->name('movie.watch');
+	Route::get('watch/{movie}/backup/{episode}', [ClientController::class, 'BackUpLink'])->name('movie.backup');
 });

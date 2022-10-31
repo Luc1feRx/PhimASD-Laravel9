@@ -11,98 +11,102 @@
                     <div class="ajax"></div>
                 </div>
             </div>
-            <div class="col-xs-12 carausel-sliderWidget">
-                <section id="halim-advanced-widget-4">
+                            <section class="related-movies">
                     <div id="halim_related_movies-2xx" class="wrap-slider">
                         <div class="section-bar clearfix">
-                            <h3 class="section-title"><span>PHIM HOT</span></h3>
+                            <h3 class="section-title"><span>Phim HOT</span></h3>
                         </div>
-                        <div id="phimchieurap_index" class="owl-carousel owl-theme related-film">
-                            <article class="thumb grid-item post-38498">
+                        <div id="hot_movies" class="owl-carousel owl-theme related-film">
+                            <article class="thumb grid-item post-38494">
                                 <div class="halim-item">
-                                    <a class="halim-thumb" href="chitiet.php" title="Đại Thánh Vô Song">
+                                    <a class="halim-thumb" href="chitiet.php" title="Câu Chuyện Kinh Dị Cổ Điển">
                                         <figure><img class="lazy img-responsive"
-                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-w860_-tiHFI/YO7DW5hwmNI/AAAAAAAAJqg/yFXRsVIh70oslGUKU4Fg3NxipcmCiPt3ACLcBGAsYHQ/s320/unnamed.jpg"
-                                                alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
+                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-Hp2tnGf-zNQ/YO68R-yZRcI/AAAAAAAAJqY/Nc9qNCLgBtcjeWjOEIrOW45H5Vvva4xNgCLcBGAsYHQ/s320/MV5BNzE1YjdmMWYtMDk5ZS00YzEzLWE4NjctYmFiZmIwNzU0MjQ5XkEyXkFqcGdeQXVyMTA3MDAxNDcw._V1_.jpg"
+                                                alt="Câu Chuyện Kinh Dị Cổ Điển" title="Câu Chuyện Kinh Dị Cổ Điển">
+                                        </figure>
                                         <span class="status">HD</span><span class="episode"><i class="fa fa-play"
                                                 aria-hidden="true"></i>Vietsub</span>
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
-                                                <p class="entry-title">Đại Thánh Vô Song</p>
-                                                <p class="original_title">Monkey King: The One And Only</p>
+                                                <p class="entry-title">Câu Chuyện Kinh Dị Cổ Điển</p>
+                                                <p class="original_title">A Classic Horror Story</p>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                             </article>
-                            <article class="thumb grid-item post-38498">
+                            <article class="thumb grid-item post-38494">
                                 <div class="halim-item">
-                                    <a class="halim-thumb" href="chitiet.php" title="Đại Thánh Vô Song">
+                                    <a class="halim-thumb" href="chitiet.php" title="Câu Chuyện Kinh Dị Cổ Điển">
                                         <figure><img class="lazy img-responsive"
-                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-w860_-tiHFI/YO7DW5hwmNI/AAAAAAAAJqg/yFXRsVIh70oslGUKU4Fg3NxipcmCiPt3ACLcBGAsYHQ/s320/unnamed.jpg"
-                                                alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
+                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-Hp2tnGf-zNQ/YO68R-yZRcI/AAAAAAAAJqY/Nc9qNCLgBtcjeWjOEIrOW45H5Vvva4xNgCLcBGAsYHQ/s320/MV5BNzE1YjdmMWYtMDk5ZS00YzEzLWE4NjctYmFiZmIwNzU0MjQ5XkEyXkFqcGdeQXVyMTA3MDAxNDcw._V1_.jpg"
+                                                alt="Câu Chuyện Kinh Dị Cổ Điển" title="Câu Chuyện Kinh Dị Cổ Điển">
+                                        </figure>
                                         <span class="status">HD</span><span class="episode"><i class="fa fa-play"
                                                 aria-hidden="true"></i>Vietsub</span>
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
-                                                <p class="entry-title">Đại Thánh Vô Song</p>
-                                                <p class="original_title">Monkey King: The One And Only</p>
+                                                <p class="entry-title">Câu Chuyện Kinh Dị Cổ Điển</p>
+                                                <p class="original_title">A Classic Horror Story</p>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                             </article>
-                            <article class="thumb grid-item post-38498">
+                            <article class="thumb grid-item post-38494">
                                 <div class="halim-item">
-                                    <a class="halim-thumb" href="chitiet.php" title="Đại Thánh Vô Song">
+                                    <a class="halim-thumb" href="chitiet.php" title="Câu Chuyện Kinh Dị Cổ Điển">
                                         <figure><img class="lazy img-responsive"
-                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-w860_-tiHFI/YO7DW5hwmNI/AAAAAAAAJqg/yFXRsVIh70oslGUKU4Fg3NxipcmCiPt3ACLcBGAsYHQ/s320/unnamed.jpg"
-                                                alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
+                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-Hp2tnGf-zNQ/YO68R-yZRcI/AAAAAAAAJqY/Nc9qNCLgBtcjeWjOEIrOW45H5Vvva4xNgCLcBGAsYHQ/s320/MV5BNzE1YjdmMWYtMDk5ZS00YzEzLWE4NjctYmFiZmIwNzU0MjQ5XkEyXkFqcGdeQXVyMTA3MDAxNDcw._V1_.jpg"
+                                                alt="Câu Chuyện Kinh Dị Cổ Điển" title="Câu Chuyện Kinh Dị Cổ Điển">
+                                        </figure>
                                         <span class="status">HD</span><span class="episode"><i class="fa fa-play"
                                                 aria-hidden="true"></i>Vietsub</span>
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
-                                                <p class="entry-title">Đại Thánh Vô Song</p>
-                                                <p class="original_title">Monkey King: The One And Only</p>
+                                                <p class="entry-title">Câu Chuyện Kinh Dị Cổ Điển</p>
+                                                <p class="original_title">A Classic Horror Story</p>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                             </article>
-                            <article class="thumb grid-item post-38498">
+                            <article class="thumb grid-item post-38494">
                                 <div class="halim-item">
-                                    <a class="halim-thumb" href="chitiet.php" title="Đại Thánh Vô Song">
+                                    <a class="halim-thumb" href="chitiet.php" title="Câu Chuyện Kinh Dị Cổ Điển">
                                         <figure><img class="lazy img-responsive"
-                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-w860_-tiHFI/YO7DW5hwmNI/AAAAAAAAJqg/yFXRsVIh70oslGUKU4Fg3NxipcmCiPt3ACLcBGAsYHQ/s320/unnamed.jpg"
-                                                alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
+                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-Hp2tnGf-zNQ/YO68R-yZRcI/AAAAAAAAJqY/Nc9qNCLgBtcjeWjOEIrOW45H5Vvva4xNgCLcBGAsYHQ/s320/MV5BNzE1YjdmMWYtMDk5ZS00YzEzLWE4NjctYmFiZmIwNzU0MjQ5XkEyXkFqcGdeQXVyMTA3MDAxNDcw._V1_.jpg"
+                                                alt="Câu Chuyện Kinh Dị Cổ Điển" title="Câu Chuyện Kinh Dị Cổ Điển">
+                                        </figure>
                                         <span class="status">HD</span><span class="episode"><i class="fa fa-play"
                                                 aria-hidden="true"></i>Vietsub</span>
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
-                                                <p class="entry-title">Đại Thánh Vô Song</p>
-                                                <p class="original_title">Monkey King: The One And Only</p>
+                                                <p class="entry-title">Câu Chuyện Kinh Dị Cổ Điển</p>
+                                                <p class="original_title">A Classic Horror Story</p>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                             </article>
-                            <article class="thumb grid-item post-38498">
+                            <article class="thumb grid-item post-38494">
                                 <div class="halim-item">
-                                    <a class="halim-thumb" href="chitiet.php" title="Đại Thánh Vô Song">
+                                    <a class="halim-thumb" href="chitiet.php" title="Câu Chuyện Kinh Dị Cổ Điển">
                                         <figure><img class="lazy img-responsive"
-                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-w860_-tiHFI/YO7DW5hwmNI/AAAAAAAAJqg/yFXRsVIh70oslGUKU4Fg3NxipcmCiPt3ACLcBGAsYHQ/s320/unnamed.jpg"
-                                                alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
+                                                src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-Hp2tnGf-zNQ/YO68R-yZRcI/AAAAAAAAJqY/Nc9qNCLgBtcjeWjOEIrOW45H5Vvva4xNgCLcBGAsYHQ/s320/MV5BNzE1YjdmMWYtMDk5ZS00YzEzLWE4NjctYmFiZmIwNzU0MjQ5XkEyXkFqcGdeQXVyMTA3MDAxNDcw._V1_.jpg"
+                                                alt="Câu Chuyện Kinh Dị Cổ Điển" title="Câu Chuyện Kinh Dị Cổ Điển">
+                                        </figure>
                                         <span class="status">HD</span><span class="episode"><i class="fa fa-play"
                                                 aria-hidden="true"></i>Vietsub</span>
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
-                                                <p class="entry-title">Đại Thánh Vô Song</p>
-                                                <p class="original_title">Monkey King: The One And Only</p>
+                                                <p class="entry-title">Câu Chuyện Kinh Dị Cổ Điển</p>
+                                                <p class="original_title">A Classic Horror Story</p>
                                             </div>
                                         </div>
                                     </a>
@@ -112,8 +116,6 @@
                         </div>
                     </div>
                 </section>
-                <div class="clearfix"></div>
-            </div>
             <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
                 @foreach ($category_movies as $category_movie)
                     <section id="halim-advanced-widget-2">
@@ -158,4 +160,6 @@
         </div>
     </div>
     <div class="clearfix"></div>
+
+    
 @endsection

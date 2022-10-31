@@ -10,8 +10,12 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-6">
-                            <div class="yoast_breadcrumb hidden-xs"><span><span><a
-                                            href="{{ url('client/categories', ['slug' => $movie->category->slug]) }}">{{ $movie->category->name }}</a>
+                            <div class="yoast_breadcrumb hidden-xs"><span><span>
+                                @foreach ($movie->movie_category as $mc)
+                                »
+                                <a
+                                href="{{ url('client/categories', ['slug' => $mc->slug]) }}">{{ $mc->name }}</a>
+                                @endforeach
                                         » <span><a href="danhmuc.php">{{ $movie->country->name }}</a> » <span
                                                 class="breadcrumb_last"
                                                 aria-current="page">{{ $movie->name }}</span></span></span></span></div>
@@ -42,7 +46,8 @@
                                         alt="{{ $movie->name }}">
                                     <div class="bwa-content">
                                         <div class="loader"></div>
-                                        <a href="{{ route('movie.watch', ['slug' => $movie->slug, 'episode' => $firstEp->episodes]) }}" class="bwac-btn">
+                                        <a href="{{ route('movie.watch', ['slug' => $movie->slug, 'episode' => $firstEp->episodes]) }}"
+                                            class="bwac-btn">
                                             <i class="fa fa-play"></i>
                                         </a>
                                     </div>
@@ -65,13 +70,14 @@
                                                 @endif
                                             </span><span
                                                 class="episode">{{ $movie->subtitle == 1 ? 'Vietsub' : 'Thuyết Minh' }}</span>
-                                                @if ($episodeCount > 1)
+                                            @if ($episodeCount > 1)
+                                                <span class="episode">Tập {{ $episodeCount }} / {{ $movie->episodes }} Tập
+                                                    -
+                                                    {{ $movie->episodes == $episodeCount ? 'Hoàn Thành' : 'Đang Cập Nhật' }}</span>
+                                            @else
                                                 <span
-                                                class="episode">Tập {{ $episodeCount }} / {{ $movie->episodes }} Tập - {{$movie->episodes == $episodeCount ? 'Hoàn Thành' : 'Đang Cập Nhật'}}</span>
-                                                @else
-                                                <span
-                                                class="episode">{{$movie->episodes == $episodeCount ? 'Hoàn Thành' : 'Đang Cập Nhật'}}</span>
-                                                @endif
+                                                    class="episode">{{ $movie->episodes == $episodeCount ? 'Hoàn Thành' : 'Đang Cập Nhật' }}</span>
+                                            @endif
                                         </li>
                                         <li class="list-info-group-item"><span>Điểm IMDb</span> : <span
                                                 class="imdb">7.2</span></li>
@@ -125,7 +131,10 @@
                         <div id="halim_trailer">
                             <h2 class="section-title"><span style="color:#ffed4d">Nội dung phim</span></h2>
                             <br>
-                            <iframe width="100%" height="420" src="https://www.youtube.com/embed/{{$movie->trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe width="100%" height="420" src="https://www.youtube.com/embed/{{ $movie->trailer }}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
                         </div>
                     </div>
                 </section>

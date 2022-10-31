@@ -17,7 +17,7 @@
 
 <script type='text/javascript' src='{{ asset('client/js/bootstrap.min.js?ver=5.7.2') }}' id='bootstrap-js'></script>
 <script type='text/javascript' src='{{ asset('client/js/owl.carousel.min.js?ver=5.7.2') }}' id='carousel-js'></script>
-<script type='text/javascript' src='{{ asset('client/js/main.js') }}'></script>
+<script type='text/javascript' src='{{ asset('client/js/index.js') }}'></script>
 <script type='text/javascript' src='{{ asset('client/js/halimtheme-core.min.js?ver=1626273138') }}' id='halim-init-js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 

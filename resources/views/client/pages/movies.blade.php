@@ -10,9 +10,13 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-6">
-                            <div class="yoast_breadcrumb hidden-xs"><span><span><a
-                                            href="">{{ $m->category->name }}</a> » <span><a
-                                                href="{{ url('client/categories', ['slug' => $m->category->slug]) }}">{{ $m->country->name }}</a>
+                            <div class="yoast_breadcrumb hidden-xs"><span><span>
+                                @foreach ($m->movie_category as $mmc)
+                                »
+                                <a
+                                href="{{ url('client/categories', ['slug' => $mmc->slug]) }}">{{ $mmc->name }}</a>
+                                @endforeach <span><a
+                                                href="">{{ $m->country->name }}</a>
                                             » <span class="breadcrumb_last"
                                                 aria-current="page">{{ $m->name }}</span></span></span></span>
                             </div>
@@ -25,7 +29,25 @@
             </div>
             <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
                 <section id="content" class="test">
+                    <div style="margin: 10px 5px;
+                    display: flex;
+                    justify-content: center;">
+                        <span style="color: red; font-size: 20px;">VUI LÒNG CHỌN SERVER HYDRAX NẾU XEM PHIM BỊ LỖI</span>
+                    </div>
                     <div class="clearfix wrap-content">
+                        <div class="mx-auto mb-3 change_link" data-episode="{{$getEp}}" data-movie="{{$m->id}}" style="margin: 10px 5px;
+                        display: flex;">
+                            <span class="hydrax-title" style="background: #224361;
+                            padding: 6px 10px;
+                            font-size: 12px;
+                            border-radius: 2px;
+                            color: #fff;
+                            transition: .5s all;
+                            cursor: pointer;
+                            display: inline-block;
+                            margin: auto;
+                            text-align: center;">SERVER HYDRAX</span>
+                        </div>
                         <style>
                             iframe {
                                 width: 820px;
@@ -98,7 +120,7 @@
                         <div id="halim-list-server">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
-                                        role="tab" data-toggle="tab"><i class="hl-server"></i> VIP no1</a></li>
+                                        role="tab" data-toggle="tab"><i class="hl-server"></i> SERVER VIP</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active server-1" id="server-0">
@@ -108,50 +130,6 @@
                                                 @foreach ($get_eps as $key => $ep)
                                                     <a
                                                          href="{{ route('movie.watch', ['slug'=>$m->slug, 'episode' => $ep->episodes]) }}" class="change-ep-ajax" data-title="{{$m->slug}}" data-episode="{{$ep->episodes}}">
-                                                        <li class="halim-episode"><span
-                                                                class="halim-btn halim-btn-2 {{ $ep->episodes == $current_ep ? 'active' : '' }} halim-info-1-1 box-shadow"
-                                                                data-post-id="37976" data-server="1" data-episode="1"
-                                                                data-position="first" data-embed="0"
-                                                                data-title="Xem phim {{ $m->name }} - Tập {{ $ep->episodes }} - {{ $m->name_eng }} - vietsub + Thuyết Minh"
-                                                                data-h1="{{ $m->name }} - tập {{ $ep->episodes }}">{{ $ep->episodes }}</span>
-                                                        </li>
-                                                    </a>
-                                                @endforeach
-                                            @else
-                                                @foreach ($get_eps as $key => $ep)
-                                                    <a
-                                                    href="{{ route('movie.watch', ['slug'=>$m->slug, 'episode' => $ep->episodes]) }}" class="change-ep-ajax" data-title="{{$m->slug}}" data-episode="{{$ep->episodes}}">
-                                                        <li class="halim-episode"><span
-                                                                class="halim-btn halim-btn-2 {{ $ep->episodes == $current_ep ? 'active' : '' }} halim-info-1-1 box-shadow"
-                                                                data-post-id="37976" data-server="1" data-episode="1"
-                                                                data-position="first" data-embed="0"
-                                                                data-title="Xem phim {{ $m->name }} - Tập {{ $ep->episodes }} - {{ $m->name_eng }} - vietsub + Thuyết Minh"
-                                                                data-h1="{{ $m->name }}">{{ $m->resolution == 1 ? 'FullHD' : 'HD' }}</span>
-                                                        </li>
-                                                    </a>
-                                                @endforeach
-                                            @endif
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div id="halim-list-server">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active server-1"><a href="#server-0"
-                                        aria-controls="server-0" role="tab" data-toggle="tab"><i
-                                            class="hl-server"></i> Hydrax</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active server-1" id="server-0">
-                                    <div class="halim-server">
-                                        <ul class="halim-list-eps">
-                                            @if ($m->season > 0)
-                                                @foreach ($get_eps as $key => $ep)
-                                                    <a
-                                                    href="{{ route('movie.watch', ['slug'=>$m->slug, 'episode' => $ep->episodes]) }}" class="change-ep-ajax" data-title="{{$m->slug}}" data-episode="{{$ep->episodes}}">
                                                         <li class="halim-episode"><span
                                                                 class="halim-btn halim-btn-2 {{ $ep->episodes == $current_ep ? 'active' : '' }} halim-info-1-1 box-shadow"
                                                                 data-post-id="37976" data-server="1" data-episode="1"

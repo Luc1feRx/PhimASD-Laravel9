@@ -33,7 +33,7 @@ class ClientController extends Controller
     }
 
     public function MovieDetail($slug = ''){
-        $movie = Movie::with('movie_genre', 'category', 'country', 'movie_actor')->where('slug', $slug)->first();
+        $movie = Movie::with('movie_genre', 'movie_category', 'country', 'movie_actor')->where('slug', $slug)->first();
         $episodes = Episode::where('movie_id', $movie->id)->get();
         $firstEp = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('id', 'asc')->first();
         return view('client.pages.detail',[
@@ -45,7 +45,7 @@ class ClientController extends Controller
     }
 
     public function WatchMovie($slug = '', $episode, Request $request){
-        $m = Movie::with('related_episodes', 'category', 'country')->where('slug', $slug)->first();
+        $m = Movie::with('related_episodes', 'movie_category', 'country')->where('slug', $slug)->first();
         $episodes = Episode::with('movie')->where('movie_id', $m->id)->where('episodes', $episode)->first();
         $get_ep_link1 = Episode::with('movie')->select('id', 'movie_id', 'slug', 'link1', 'episodes')->where('movie_id', $m->id)->get();
         // dd($episodes);
@@ -54,7 +54,15 @@ class ClientController extends Controller
             'm' => $m,
             'eachEpisode' => $episodes,
             'get_eps' => $get_ep_link1,
-            'current_ep' => $request->episode
+            'current_ep' => $request->episode,
+            'getEp' => $request->episode
+        ]);
+    }
+
+    public function BackUpLink($movie, $episode){
+        $get_ep_link2 = Episode::select('id', 'movie_id', 'slug', 'link2', 'episodes')->where('movie_id', $movie)->where('episodes', $episode)->get();
+        return response()->json([
+            'get_ep_link2' => $get_ep_link2
         ]);
     }
 }
