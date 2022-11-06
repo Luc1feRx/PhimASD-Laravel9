@@ -15,7 +15,7 @@ class EpisodeController extends Controller
     
     public function __construct(EpisodeRepository $EpisodeRepository)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
         $this->episodeRepository = $EpisodeRepository;
     }
 

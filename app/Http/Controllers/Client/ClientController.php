@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Country;
 use App\Models\Episode;
 use App\Models\Genre;
@@ -36,11 +37,13 @@ class ClientController extends Controller
         $movie = Movie::with('movie_genre', 'movie_category', 'country', 'movie_actor')->where('slug', $slug)->first();
         $episodes = Episode::where('movie_id', $movie->id)->get();
         $firstEp = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('id', 'asc')->first();
+        $comments = Comment::with('user')->where('movie_id', $movie->id)->where('state', 1)->paginate(10);
         return view('client.pages.detail',[
             'title' => $movie->name,
             'movie' => $movie,
             'episodeCount' => $episodes->count(),
-            'firstEp' => $firstEp
+            'firstEp' => $firstEp,
+            'comments' => $comments
         ]);
     }
 

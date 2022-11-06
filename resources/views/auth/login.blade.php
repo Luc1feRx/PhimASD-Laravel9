@@ -22,13 +22,16 @@
                     </div>
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>
-                                    Create new account OR Sign in with these credentials:
-                                    <br>
-                                    Username <strong>admin@argon.com</strong> Password: <strong>secret</strong>
-                            </small>
+                            @if (count($errors) > 0)
+                            @foreach ($errors->all() as $message)
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button>
+                                    <span>{{ $message }}</span>
+                                </div>
+                            @endforeach
+                        @endif
                         </div>
-                        <form role="form" method="POST" action="{{ route('login') }}">
+                        <form role="form" method="POST" action="{{ route('loginAdmin') }}">
                             @csrf
 
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">

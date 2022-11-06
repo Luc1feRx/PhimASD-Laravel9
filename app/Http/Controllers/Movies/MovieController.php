@@ -22,7 +22,7 @@ class MovieController extends Controller
     CategoryRepository $CategoryRepository,
     GenreRepository $GenreRepository, CountryRepository $CountryRepository)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
         $this->movieRepository = $MovieRepository;
         $this->categoryRepository = $CategoryRepository;
         $this->genreRepository = $GenreRepository;

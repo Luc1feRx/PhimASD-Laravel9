@@ -9,6 +9,7 @@
     <meta content="VN" name="geo.region" />
     <meta name="DC.language" scheme="utf-8" content="vi" />
     <meta name="language" content="Việt Nam">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
     <link rel="shortcut icon"
@@ -31,9 +32,12 @@
     <meta property="og:image:width" content="300" />
     <meta property="og:image:height" content="55" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    
 
     <link rel='dns-prefetch' href='//s.w.org' />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.5/sweetalert2.min.css" integrity="sha512-NvuRGlPf6cHpxQqBGnPe7fPoACpyrjhlSNeXVUY7BZAj1nNhuNpRBq3osC4yr2vswUEuHq2HtCsY2vfLNCndYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <link rel='stylesheet' id='bootstrap-css' href='{{ asset('client/css/bootstrap.min.css?ver=5.7.2') }}' media='all' />
     <link rel='stylesheet' id='style-css' href='{{ asset('client/css/style.css?ver=5.7.2') }}' media='all' />
     <link rel='stylesheet' id='index-css' href='{{ asset('client/css/index.css') }}' media='all' />

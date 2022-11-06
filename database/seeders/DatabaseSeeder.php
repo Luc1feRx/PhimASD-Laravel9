@@ -14,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Country::factory(10)->create();
+        DB::table('admins')->insert([
+            [
+                'name' => 'tu',
+                'email' => 'clgtqwe1@gmail.com',
+                'password' => bcrypt('1234'),
+            ]
+        ]);
     }
 }

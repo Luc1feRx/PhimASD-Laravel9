@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Storage;
 
 class ActorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function index()
     {
         $list_actors = Actor::with('movie')->with('country')->paginate(10);

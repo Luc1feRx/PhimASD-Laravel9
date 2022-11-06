@@ -17,7 +17,7 @@ class CategoryController extends Controller
 
     public function __construct(CategoryRepository $CategoriesRepository)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
         $this->categoriesRepository = $CategoriesRepository;
     }
     public function index()

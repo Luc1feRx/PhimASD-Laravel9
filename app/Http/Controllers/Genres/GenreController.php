@@ -15,7 +15,7 @@ class GenreController extends Controller
     protected $genreRepository;
     public function __construct(GenreRepository $GenreRepository)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
         $this->genreRepository = $GenreRepository;
     }
     /**

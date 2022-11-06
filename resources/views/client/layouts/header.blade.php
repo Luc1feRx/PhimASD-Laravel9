@@ -21,13 +21,48 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 hidden-xs">
+            <div class="col-md-4 hidden-xs" style="display: flex;">
                 <div id="get-bookmark" class="box-shadow"><i class="hl-bookmark"></i><span> Bookmarks</span><span
                         class="count">0</span></div>
                 <div id="bookmark-list" class="hidden bookmark-list-on-pc">
                     <ul style="margin: 0;"></ul>
                 </div>
+
+                @auth
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{ \Auth::user()->name }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <form style="padding: 12px;" action="{{ route('client.logout') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <button type="submit" style="width: 100%;" class="btn btn-primary">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    {{-- <div class="btn-group" role="group" aria-label="...">
+                <form action="{{ route('client.logout') }}" method="post">
+                    {{ csrf_field() }}
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+            </div> --}}
+                @else
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a href="{{ route('client.showlogin') }}" class="btn btn-primary">Login</a>
+                    </div>
+                @endauth
+
+
             </div>
+
         </div>
     </div>
 </header>
@@ -58,14 +93,15 @@
             <div class="collapse navbar-collapse" id="halim">
                 <div class="menu-menu_1-container">
                     <ul id="menu-menu_1" class="nav navbar-nav navbar-left">
-                        <li class="current-menu-item active"><a title="Trang Chủ" href="{{ url('client/home') }}">Trang Chủ</a>
+                        <li class="current-menu-item active"><a title="Trang Chủ" href="{{ url('client/home') }}">Trang
+                                Chủ</a>
                         </li>
                         <li class="mega dropdown">
                             <a title="Thể Loại" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                 aria-haspopup="true">Thể Loại <span class="caret"></span></a>
                             <ul role="menu" class=" dropdown-menu">
                                 @foreach ($genres as $genre)
-                                    <li><a title="{{$genre->name}}" href="danhmuc.php">{{$genre->name}}</a></li>                                    
+                                    <li><a title="{{ $genre->name }}" href="danhmuc.php">{{ $genre->name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
@@ -74,12 +110,15 @@
                                 aria-haspopup="true">Quốc Gia <span class="caret"></span></a>
                             <ul role="menu" class=" dropdown-menu">
                                 @foreach ($countries as $country)
-                                    <li><a title="{{$country->name}}" href="danhmuc.php">{{$country->name}}</a></li>
+                                    <li><a title="{{ $country->name }}" href="danhmuc.php">{{ $country->name }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>
                         @foreach ($categories as $category)
-                        <li class="mega"><a title="{{$category->name}}" href="{{ url('/client/categories', ['slug' => $category->slug]) }}">{{$category->name}}</a></li>
+                            <li class="mega"><a title="{{ $category->name }}"
+                                    href="{{ url('/client/categories', ['slug' => $category->slug]) }}">{{ $category->name }}</a>
+                            </li>
                         @endforeach
                     </ul>
                 </div>

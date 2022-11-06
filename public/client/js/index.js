@@ -62,3 +62,44 @@ $(document).ready(function($) {
             });
         });
     });
+
+
+//add comment
+
+$(document).ready(function () {
+    $('#AddComment').submit(function(e) {
+        e.preventDefault();
+        $('.errors').html('');
+        $('.errors').removeClass('alert alert-danger');
+        var user_id = $('#user_id').val();
+        var movie_id = $('#movie_id').val();
+        var content = $('#message').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/client/addComment",
+            data: {content: content, movie_id: movie_id, user_id: user_id},
+            dataType: "json",
+            success: function(data) {
+                Swal.fire(
+                    'Successfully!',
+                    data.message,
+                    'success'
+                )
+
+            },
+            error: function(jqXHR) {
+                $('.errors').html("");
+                $('.errors').addClass('alert alert-danger');
+                $.each(jqXHR.responseJSON.errors, function(index, error) {
+                    $('.errors').append('<li>' + error + '</li>');
+                });
+            }
+        });
+
+    });
+});

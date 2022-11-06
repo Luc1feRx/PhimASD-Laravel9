@@ -14,7 +14,7 @@ class CountriesController extends Controller
     protected $countryRepository;
     public function __construct(CountryRepository $CountryRepository)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
         $this->countryRepository = $CountryRepository;
     }
 

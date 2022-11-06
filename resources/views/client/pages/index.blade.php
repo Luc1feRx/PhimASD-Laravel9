@@ -134,8 +134,13 @@
                                                         src="{{ \Storage::disk('s3')->temporaryURL('uploads/movies/'.$amovie->image, now()->addMinutes(10)) }}"
                                                         alt="{{$amovie->name}}"
                                                         title="{{$amovie->name}}"></figure>
-                                                <span class="status">Tập {{$amovie->episodes}}</span><span class="episode"><i
-                                                        class="fa fa-play" aria-hidden="true"></i>{{$amovie->subtitle == 1 ? 'Phụ đề' : 'Thuyết Minh'}}</span>
+                                                    @if ($amovie->season > 0)
+                                                        <span class="status">Tập {{$amovie->episodes}}</span>
+                                                    @else
+                                                    <span class="status">{{$amovie->resolution == 1 ? 'FullHD' : 'HD'}}</span>
+                                                    @endif
+                                                        <span class="episode"><i
+                                                        class="fa fa-play" aria-hidden="true"></i> {{$amovie->subtitle == 1 ? 'Phụ đề' : 'Thuyết Minh'}}</span>
                                                 <div class="icon_overlay"></div>
                                                 <div class="halim-post-title-box">
                                                     <div class="halim-post-title ">

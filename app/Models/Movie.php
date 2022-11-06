@@ -59,4 +59,8 @@ class Movie extends Model
     public function related_episodes(){
         return $this->hasMany(Episode::class);
     }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }

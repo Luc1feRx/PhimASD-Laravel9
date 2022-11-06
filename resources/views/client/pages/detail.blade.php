@@ -11,14 +11,15 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="yoast_breadcrumb hidden-xs"><span><span>
-                                @foreach ($movie->movie_category as $mc)
-                                »
-                                <a
-                                href="{{ url('client/categories', ['slug' => $mc->slug]) }}">{{ $mc->name }}</a>
-                                @endforeach
+                                        @foreach ($movie->movie_category as $mc)
+                                            »
+                                            <a
+                                                href="{{ url('client/categories', ['slug' => $mc->slug]) }}">{{ $mc->name }}</a>
+                                        @endforeach
                                         » <span><a href="danhmuc.php">{{ $movie->country->name }}</a> » <span
                                                 class="breadcrumb_last"
-                                                aria-current="page">{{ $movie->name }}</span></span></span></span></div>
+                                                aria-current="page">{{ $movie->name }}</span></span>
+                                    </span></span></div>
                         </div>
                     </div>
                 </div>
@@ -81,6 +82,8 @@
                                         </li>
                                         <li class="list-info-group-item"><span>Điểm IMDb</span> : <span
                                                 class="imdb">7.2</span></li>
+                                        <li class="list-info-group-item"><span>Năm sản xuất</span> : <span
+                                                class="year_release">{{ $movie->year_release }}</span></li>
                                         <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->duration }}
                                         </li>
                                         <li class="list-info-group-item"><span>Thể loại</span> :
@@ -102,9 +105,8 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="clearfix"></div>
                         <div class="section-bar clearfix">
-                            <h2 class="section-title"><span style="color:#ffed4d">Trailer Phim</span></h2>
+                            <h2 class="section-title"><span style="color:#ffed4d">Nội dung phim</span></h2>
                         </div>
                         <div class="entry-content htmlwrap clearfix">
                             <div class="video-item halim-entry-box">
@@ -112,30 +114,93 @@
                                     Phim <a href="https://phimhay.co/goa-phu-den-38424/">{{ $movie->name }}</a> -
                                     {{ $movie->country->name }}:
                                     {!! $movie->description !!}
-                                    {{-- <h5>Từ Khoá Tìm Kiếm:</h5>
-                                    <ul>
-                                        <li>black widow vietsub</li>
-                                        <li>Black Widow 2021 Vietsub</li>
-                                        <li>phim black windows 2021</li>
-                                        <li>xem phim black windows</li>
-                                        <li>xem phim black widow</li>
-                                        <li>phim black windows</li>
-                                        <li>goa phu den</li>
-                                        <li>xem phim black window</li>
-                                        <li>phim black widow 2021</li>
-                                        <li>xem black widow</li>
-                                    </ul> --}}
                                 </article>
                             </div>
                         </div>
                         <div id="halim_trailer">
-                            <h2 class="section-title"><span style="color:#ffed4d">Nội dung phim</span></h2>
+                            <h2 class="section-title"><span style="color:#ffed4d">Trailer Phim</span></h2>
                             <br>
                             <iframe width="100%" height="420" src="https://www.youtube.com/embed/{{ $movie->trailer }}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                         </div>
+
+                        <div class="section-bar clearfix">
+                            <h2 class="section-title"><span style="color:#ffed4d">Bình luận phim</span></h2>
+                        </div>
+
+                        @auth
+                            <div class="entry-content htmlwrap clearfix">
+                                <div class="video-item halim-entry-box">
+                                    <section class="content-item" id="comments">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <ul class="errors"></ul>
+                                                <form method="POST" action="{{ route('client.addComment') }}"
+                                                    id="AddComment">
+                                                    {{ csrf_field() }}
+                                                    <fieldset style="clear: both;">
+                                                        <div class="row">
+                                                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                                                <textarea class="form-control" id="message" placeholder="Your message" name="content"></textarea>
+                                                                <input type="hidden" name="user_id" id="user_id"
+                                                                    value="{{ \Auth::user()->id }}">
+                                                                <input type="hidden" name="movie_id" id="movie_id"
+                                                                    value="{{ $movie->id }}">
+                                                            </div>
+                                                            <div class="col-sm-2"
+                                                                style="display: flex; justify-content: center; height: 55px;">
+                                                                <button type="submit"
+                                                                    class="btn btn-normal pull-right">Send</button>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+
+
+                                                <div class="row reload-list">
+                                                    @foreach ($comments as $cmt)
+                                                        <div class="media"
+                                                            style="border-top: 1px dashed #DDDDDD;
+                                            padding: 30px 0;
+                                            margin: 0;">
+                                                            <div class="media-body">
+                                                                <h4 class="media-heading">{{ $cmt->user->name }}</h4>
+                                                                <p>{{ $cmt->content }}</p>
+                                                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                                                    <li><i class="fa fa-calendar"
+                                                                            style="margin-right: 10px"></i>{{ $cmt->created_at }}</li>
+                                                                </ul>
+                                                                <ul class="list-unstyled list-inline media-detail pull-right">
+                                                                    <li class=""><a href="">Like</a></li>
+                                                                    <li class=""><a href="">Reply</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        @else
+                            <div class="entry-content htmlwrap clearfix">
+                                <div class="video-item halim-entry-box">
+                                    <section class="content-item" id="comments">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="alert alert-warning" role="alert">Bạn cần đăng nhập để bình luận
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        @endauth
                     </div>
                 </section>
                 <section class="related-movies">

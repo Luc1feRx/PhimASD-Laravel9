@@ -3,6 +3,9 @@
 use App\Http\Controllers\Actors\ActorController;
 use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\LoginController;
+use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Client\CommentController;
 use App\Http\Controllers\Countries\CountriesController;
 use App\Http\Controllers\Episodes\EpisodeController;
 use App\Http\Controllers\Genres\GenreController;
@@ -22,16 +25,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Auth::routes();
-
-Route::get('/', function () {
-	return view('welcome');
-});
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Auth::routes();
 
 
-Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+Route::get('/login', [AuthLoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthLoginController::class, 'loginAdmin'])->name('loginAdmin');
+Route::post('/logout', [AuthLoginController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthLoginController::class, 'register'])->name('register');
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
+	Route::get('/', function () {
+		return view('welcome');
+	});
+	Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
@@ -85,15 +90,28 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 		Route::get('index', [ActorController::class, 'index'])->name('actors.index');
 	});
 	Route::get('list-images/{id}', [ActorController::class, 'getImagesByActorID'])->name('actors.viewImages');
+
+	
+	Route::get('comments', [CommentController::class, 'index'])->name('comments-list');
+	Route::post('switch-state-to-approve/{id}', [CommentController::class, 'ChangeStateToApprove'])->name('ChangeStateToApprove');
+	Route::post('switch-state-to-refuse/{id}', [CommentController::class, 'ChangeStateToRefuse'])->name('ChangeStateToRefuse');
 });
 
 Route::get('all', [MovieController::class, 'index'])->name('movies.all');
 Route::get('episodes/list/{id}', [EpisodeController::class, 'ListEp'])->name('episodes.ListEpisode');
 
 Route::group(['prefix' => 'client'], function () {
-	Route::get('/home', [ClientController::class, 'index']);
+	Route::get('/home', [ClientController::class, 'index'])->name('client.home');
 	Route::get('/categories/{slug}', [ClientController::class, 'categoryDetail']);
 	Route::get('/movie/{slug}', [ClientController::class, 'MovieDetail'])->name('movie.detail');
 	Route::get('watch/movie/{slug}/episode-{episode}', [ClientController::class, 'WatchMovie'])->name('movie.watch');
 	Route::get('watch/{movie}/backup/{episode}', [ClientController::class, 'BackUpLink'])->name('movie.backup');
+	
+	//login
+	Route::get('login', [LoginController::class, 'showlogin'])->name('client.showlogin');
+	Route::post('login', [LoginController::class, 'login'])->name('client.login');
+	Route::post('logout', [LoginController::class, 'logout'])->name('client.logout');
+
+	//comments
+	Route::post('addComment', [CommentController::class, 'addComment'])->name('client.addComment');
 });

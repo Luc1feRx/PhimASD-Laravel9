@@ -14,7 +14,7 @@ class ActorsRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check();
+        return Auth::guard('admin')->check();
     }
 
     /**
