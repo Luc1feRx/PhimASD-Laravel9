@@ -8,16 +8,17 @@
             <div class="col-md-5 col-sm-6 halim-search-form hidden-xs">
                 <div class="header-nav">
                     <div class="col-xs-12">
-                        <form id="search-form-pc" name="halimForm" role="search" action="" method="GET">
+                        <form id="search-form-pc" autocomplete="off" role="search" action="" method="get">
+                            {{ csrf_field() }}
                             <div class="form-group">
                                 <div class="input-group col-xs-12">
-                                    <input id="search" type="text" name="s" class="form-control"
+                                    <input type="text" id="keywords" name="keywords" class="form-control"
                                         placeholder="Tìm kiếm..." autocomplete="off" required>
                                     <i class="animate-spin hl-spin4 hidden"></i>
                                 </div>
                             </div>
                         </form>
-                        <ul class="ui-autocomplete ajax-results hidden"></ul>
+                        <ul class="ui-autocomplete ajax-results"></ul>
                     </div>
                 </div>
             </div>

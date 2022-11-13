@@ -47,10 +47,21 @@
                                         alt="{{ $movie->name }}">
                                     <div class="bwa-content">
                                         <div class="loader"></div>
-                                        <a href="{{ route('movie.watch', ['slug' => $movie->slug, 'episode' => $firstEp->episodes]) }}"
+                                        {{-- <a href="{{ route('movie.watch', ['slug' => $movie->slug, 'episode' => $firstEp->episodes]) }}"
                                             class="bwac-btn">
                                             <i class="fa fa-play"></i>
-                                        </a>
+                                        </a> --}}
+                                        @if ($movie->price > 0)
+                                            <button type="button" class="bwac-btn" data-toggle="modal"
+                                                data-target="#flipFlop">
+                                                Click Me
+                                            </button>
+                                        @else
+                                            <a href="{{ route('movie.watch', ['slug' => $movie->slug, 'episode' => $firstEp->episodes]) }}"
+                                                class="bwac-btn">
+                                                <i class="fa fa-play"></i>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="film-poster col-md-9">
@@ -86,10 +97,18 @@
                                                 class="year_release">{{ $movie->year_release }}</span></li>
                                         <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->duration }}
                                         </li>
+                                        <li class="list-info-group-item"><span>Giá Tiền</span> :
+                                            @if ($movie->price > 0)
+                                                {{ \Currency::currency('VND')->format($movie->price) }}
+                                            @else
+                                                Miễn Phí (0đ)
+                                            @endif
+                                        </li>
                                         <li class="list-info-group-item"><span>Thể loại</span> :
                                             @foreach ($movie->movie_genre as $gens)
                                                 <a href="" rel="category tag">{{ $gens->name }} </a>
                                             @endforeach
+                                        </li>
                                         <li class="list-info-group-item"><span>Quốc gia</span> : <a href=""
                                                 rel="tag">{{ $movie->country->name }}</a></li>
                                         <li class="list-info-group-item last-item"
@@ -170,7 +189,8 @@
                                                                 <p>{{ $cmt->content }}</p>
                                                                 <ul class="list-unstyled list-inline media-detail pull-left">
                                                                     <li><i class="fa fa-calendar"
-                                                                            style="margin-right: 10px"></i>{{ $cmt->created_at }}</li>
+                                                                            style="margin-right: 10px"></i>{{ $cmt->created_at }}
+                                                                    </li>
                                                                 </ul>
                                                                 <ul class="list-unstyled list-inline media-detail pull-right">
                                                                     <li class=""><a href="">Like</a></li>
@@ -338,4 +358,61 @@
         </div>
     </div>
     <div class="clearfix"></div>
+
+
+
+    @auth
+        <!-- The modal -->
+        <div class="modal fade" id="flipFlop" style="z-index: 9999" tabindex="-1" role="dialog"
+            aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalLabel">Thanh Toán</h4>
+                    </div>
+                    <div class="modal-body" style="color: black">
+                        <span>Bạn có muốn mua phim <span style="font-weight: 500; font-size: 20px"
+                                class="badge">{{ $movie->name }}</span> với giá <span
+                                style="font-weight: 500; font-size: 20px"
+                                class="badge">{{ \Currency::currency('VND')->format($movie->price) }}</span></span>
+                        {{-- <a href="{{ route('movie.watch', ['slug' => $movie->slug, 'episode' => $firstEp->episodes]) }}"
+                    class="bwac-btn">
+                    <i class="fa fa-play"></i>
+                </a> --}}
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ route('client.vnpay', ['slug' => $movie->slug]) }}" method="post">
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-primary" name="redirect">Yes</button>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endauth
+
+    <!-- The modal -->
+    <div class="modal fade" id="flipFlop" style="z-index: 9999" tabindex="-1" role="dialog"
+        aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabel">Thông báo</h4>
+                </div>
+                <div class="modal-body" style="color: black">
+                    Mời Bạn Đăng Nhập Để Mua Phim Này
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('client.showlogin') }}" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

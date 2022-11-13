@@ -103,3 +103,30 @@ $(document).ready(function () {
 
     });
 });
+
+
+//search
+$(document).ready(function () {
+    $('#keywords').on('keyup',function(){
+        var keywords = $(this).val();
+        if(keywords != ''){
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "/client/search",
+                method: 'GET',
+                data:{keywords:keywords, _token:_token},
+                success: function(data){
+                    $('.ajax-results').fadeIn();
+                    $('.ajax-results').html(data);
+                },
+                error: function(jqXHR) {
+                    console.log(jqXHR);
+                    // $('.ajax-results').fadeIn();
+                    // $('.ajax-results').html(jqXHR.responseJSON.errors);
+                }
+            })
+        }else{
+            $('.ajax-results').fadeOut();
+        }
+    });
+});

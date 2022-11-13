@@ -114,4 +114,10 @@ Route::group(['prefix' => 'client'], function () {
 
 	//comments
 	Route::post('addComment', [CommentController::class, 'addComment'])->name('client.addComment');
+
+	//comments
+	Route::get('search', [ClientController::class, 'SearchAjax'])->name('client.SearchAjax');
+
+	//vnpay
+	Route::post('vnpay-payments/{slug}', [ClientController::class, 'vnpay_payment'])->name('client.vnpay');
 });
